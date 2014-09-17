@@ -5,6 +5,13 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api-pull", "api-pull\api-pull.csproj", "{AE27F25A-3918-48CA-8EFB-3B31F4F0BD46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "model", "model\model.csproj", "{79DBF157-F4FF-460F-AB08-08C0075AAB32}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{13CDEBF8-884E-4FEF-900F-8A853A99964A}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +22,10 @@ Global
 		{AE27F25A-3918-48CA-8EFB-3B31F4F0BD46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE27F25A-3918-48CA-8EFB-3B31F4F0BD46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE27F25A-3918-48CA-8EFB-3B31F4F0BD46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79DBF157-F4FF-460F-AB08-08C0075AAB32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79DBF157-F4FF-460F-AB08-08C0075AAB32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79DBF157-F4FF-460F-AB08-08C0075AAB32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79DBF157-F4FF-460F-AB08-08C0075AAB32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
