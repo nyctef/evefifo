@@ -8,16 +8,15 @@ using Character = eZet.EveLib.Modules.Character;
 
 namespace evefifo.api_pull
 {
-    internal static class ModelCharacter
+    public static class ModelCharacter
     {
         
 
-        internal static async Task UpdateExisting(IRepository repo)
+        public static async Task UpdateExisting(IRepository repo)
         {
             foreach (var character in await repo.Characters)
             {
-                var charKey = new CharacterKey(character.ApiKey.Id, character.ApiKey.Secret);
-                var updatedChar = await repo.CharacterFromApi(charKey, (int)character.Id);
+                var updatedChar = await repo.CharacterFromApi(character.ApiKey, (int)character.Id);
                 repo.Replace(character, updatedChar);
             }
         }

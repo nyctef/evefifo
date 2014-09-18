@@ -25,8 +25,9 @@ namespace evefifo.api_pull
             }
         }
 
-        public async Task<model.Character> CharacterFromApi(CharacterKey charKey, int charId)
+        public async Task<model.Character> CharacterFromApi(model.ApiKey apiKey, int charId)
         {
+            var charKey = new CharacterKey(apiKey.Id, apiKey.Secret);
             await charKey.InitAsync();
             var apiChar = new Character(charKey, charId);
             var charInfo = (await apiChar.GetCharacterInfoAsync()).Result;

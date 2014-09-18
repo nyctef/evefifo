@@ -5,10 +5,10 @@ using evefifo.model;
 
 namespace evefifo.api_pull
 {
-    internal interface IRepository
+    public interface IRepository
     {
         Task<List<model.Character>> Characters { get; }
-        Task<model.Character> CharacterFromApi(CharacterKey charKey, int charId);
+        Task<model.Character> CharacterFromApi(model.ApiKey charKey, int charId);
         void Replace(model.Character character, model.Character updatedChar);
     }
 }

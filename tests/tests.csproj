@@ -37,6 +37,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -60,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiPullTests.cs" />
     <Compile Include="ModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetupFixture.cs" />
@@ -69,6 +73,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\api-pull\api-pull.csproj">
+      <Project>{ae27f25a-3918-48ca-8efb-3b31f4f0bd46}</Project>
+      <Name>api-pull</Name>
+    </ProjectReference>
     <ProjectReference Include="..\model\model.csproj">
       <Project>{79dbf157-f4ff-460f-ab08-08c0075aab32}</Project>
       <Name>model</Name>

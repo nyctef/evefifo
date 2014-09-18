@@ -32,9 +32,7 @@ namespace evefifo.api_pull
 
         static async Task AddNewCharacter(IRepository repo, int apiKey, string apiSecret, int charId)
         {
-            var charKey = EveOnlineApi.CreateCharacterKey(apiKey, apiSecret);
-
-            var character = await repo.CharacterFromApi(charKey, charId);
+            var character = await repo.CharacterFromApi(new model.ApiKey { Id = apiKey, Secret = apiSecret }, charId);
 
             using (var db = new EvefifoContext())
             {
