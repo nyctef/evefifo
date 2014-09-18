@@ -6,6 +6,7 @@
   <FrameworkUtilisationTypeForGallio>UseStaticAnalysis</FrameworkUtilisationTypeForGallio>
   <FrameworkUtilisationTypeForMSpec>UseStaticAnalysis</FrameworkUtilisationTypeForMSpec>
   <FrameworkUtilisationTypeForMSTest>UseStaticAnalysis</FrameworkUtilisationTypeForMSTest>
+  <EngineModes>Run all tests automatically:BFRydWU=:BFRydWU=:BFRydWU=:False;Run all tests manually:BUZhbHNl:BFRydWU=:BFRydWU=:False;Run impacted tests automatically, others manually:CklzSW1wYWN0ZWQ=:BFRydWU=:BFRydWU=:False;Run pinned tests automatically, others manually:CElzUGlubmVk:BFRydWU=:BFRydWU=:True;Run tests except from category:E0RvZXNOb3RIYXZlQ2F0ZWdvcnkLSW50ZWdyYXRpb24=:BFRydWU=:BFRydWU=:False</EngineModes>
   <MetricsExclusionList>
 </MetricsExclusionList>
 </SolutionConfiguration>

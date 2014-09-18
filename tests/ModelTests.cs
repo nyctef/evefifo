@@ -10,6 +10,7 @@ namespace tests
 {
     public class ModelTests
     {
+        [Category("Integration")]
         public class CanSaveAndRetrieve
         {
             [TestFixtureSetUp]
