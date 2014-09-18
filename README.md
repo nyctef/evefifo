@@ -4,6 +4,15 @@ evefifo
 
 A character+market tracker for EVE Online players, based on FIFO accounting
 
+Notes
+=====
+
+Database
+--------
+Use `sqlite3 -init model/scripts/create-sqlite-db.sql evefifo.sqlite` to initialise the database for sqlite
+
+TODO: set up option for SQL Server (just a different connection string?)
+
 Credits
 =======
 
