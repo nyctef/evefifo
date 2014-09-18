@@ -1,9 +1,15 @@
-CREATE TABLE IF NOT EXISTS Characters (
+CREATE TABLE Characters (
     Id INTEGER PRIMARY KEY,
     Name TEXT,
     CorpName TEXT,
     CloneSP INTEGER,
     SP INTEGER,
     SecStatus REAL,
-    CloneName TEXT
+    CloneName TEXT,
+    ApiKeyId INTEGER
+);
+
+CREATE TABLE ApiKeys (
+    Id INTEGER PRIMARY KEY,
+    Secret TEXT
 );

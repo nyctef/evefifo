@@ -15,5 +15,7 @@ namespace evefifo.model
         public string Name { get; set; }
         public double SecStatus { get; set; }
         public long SP { get; set; }
+        public long ApiKeyId { get; set; }
+        public virtual ApiKey ApiKey { get; set; }
     }
 }

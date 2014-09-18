@@ -12,13 +12,22 @@ namespace tests
     {
         public class CanSaveAndRetrieve
         {
+            [TestFixtureSetUp]
+            public void TestFixtureSetUp()
+            {
+                using (var db = new EvefifoContext())
+                {
+                    db.ApiKeys.RemoveRange(db.ApiKeys);
+                    db.Characters.RemoveRange(db.Characters);
+                    db.SaveChanges();
+                }
+            }
+
             [Test]
             public void Character()
             {
                 using (var db = new EvefifoContext())
                 {
-                    db.Characters.RemoveRange(db.Characters);
-
                     var character = new Character
                     {
                         Name = "The Mittani",
@@ -26,7 +35,8 @@ namespace tests
                         CloneSP = 900000,
                         SP = 12345678,
                         CorpName = "Goonfleet",
-                        SecStatus = -9.9
+                        SecStatus = -9.9,
+                        ApiKey = new ApiKey { Id = 1234, Secret = "asdf" },
                     };
 
                     db.Characters.Add(character);
@@ -37,6 +47,7 @@ namespace tests
                 {
                     var character = db.Characters.Single();
                     Assert.AreEqual("The Mittani", character.Name);
+                    Assert.AreEqual(1234, character.ApiKey.Id);
                 }
             }
         }
