@@ -19,8 +19,8 @@ namespace evefifo.api_pull
             return new model.Character
             {
                 Id = charId,
-                Name = apiChar.CharacterName,
-                CorpName = apiChar.CorporationName,
+                Name = charInfo.CharacterName,
+                CorpName = charInfo.CorporationName,
                 CloneName = charSheet.CloneName,
                 CloneSP = charSheet.CloneSkillPoints,
                 SP = charInfo.SkillPoints,
