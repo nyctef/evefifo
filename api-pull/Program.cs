@@ -1,4 +1,5 @@
-﻿using eZet.EveLib.Modules;
+﻿using evefifo.model;
+using eZet.EveLib.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +12,31 @@ namespace evefifo.api_pull
     {
         static void Main(string[] args)
         {
-            var charId = args[0];
-            var apiKey = args[1];
-            var apiSecret = args[2];
+            if (args.Length > 2)
+            {
+                var charId = args[0];
+                var apiKey = args[1];
+                var apiSecret = args[2];
 
-            PullCharacterInfo(Int32.Parse(apiKey), apiSecret, Int32.Parse(charId)).Wait();
+                AddNewCharacter(Int32.Parse(apiKey), apiSecret, Int32.Parse(charId)).Wait();
+            }
+            else
+            {
+                ModelCharacter.UpdateExisting().Wait();
+            }
         }
 
-        static async Task PullCharacterInfo(int apiKey, string apiSecret, int charId)
+        static async Task AddNewCharacter(int apiKey, string apiSecret, int charId)
         {
             var charKey = EveOnlineApi.CreateCharacterKey(apiKey, apiSecret);
 
             var character = await ModelCharacter.FromApi(charKey, charId);
+
+            using (var db = new EvefifoContext())
+            {
+                db.Characters.Add(character);
+                await db.SaveChangesAsync();
+            }
         }
     }
 }
