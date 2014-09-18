@@ -12,25 +12,29 @@ namespace evefifo.api_pull
     {
         static void Main(string[] args)
         {
-            if (args.Length > 2)
+            using (var db = new EvefifoContext())
             {
-                var charId = args[0];
-                var apiKey = args[1];
-                var apiSecret = args[2];
+                var repo = new Repository(db);
+                if (args.Length > 2)
+                {
+                    var charId = args[0];
+                    var apiKey = args[1];
+                    var apiSecret = args[2];
 
-                AddNewCharacter(Int32.Parse(apiKey), apiSecret, Int32.Parse(charId)).Wait();
-            }
-            else
-            {
-                ModelCharacter.UpdateExisting().Wait();
+                    AddNewCharacter(repo, Int32.Parse(apiKey), apiSecret, Int32.Parse(charId)).Wait();
+                }
+                else
+                {
+                    ModelCharacter.UpdateExisting(repo).Wait();
+                }
             }
         }
 
-        static async Task AddNewCharacter(int apiKey, string apiSecret, int charId)
+        static async Task AddNewCharacter(IRepository repo, int apiKey, string apiSecret, int charId)
         {
             var charKey = EveOnlineApi.CreateCharacterKey(apiKey, apiSecret);
 
-            var character = await ModelCharacter.FromApi(charKey, charId);
+            var character = await repo.CharacterFromApi(charKey, charId);
 
             using (var db = new EvefifoContext())
             {
