@@ -27,11 +27,10 @@ namespace tests
 
         private static Character Character(string name=null, ApiKey apiKey = null, int? id=null, int? sp=null)
         {
-            var _apiKey = new ApiKey { Id = 1234, Secret = "asdf" };
             return new Character
             {
                 Name = name ?? "Foo",
-                ApiKey = apiKey ?? _apiKey,
+                ApiKey = apiKey ?? new ApiKey { Id = 1234, Secret = "asdf" },
                 Id = id ?? 3,
                 SP = sp ?? 5,
             };
