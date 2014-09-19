@@ -1,11 +1,8 @@
 ﻿using Moq;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using evefifo.api_pull;
+using evefifo.model;
 
 namespace tests
 {
@@ -14,13 +11,13 @@ namespace tests
         [Test]
         public void ReplacesOldCharacterDataWithDataFromApi()
         {
-            var apiKey = new evefifo.model.ApiKey { Id = 1234, Secret = "asdf" };
+            var apiKey = new ApiKey { Id = 1234, Secret = "asdf" };
 
             var oldCharacter = Character(apiKey: apiKey, sp: 6);
             var updatedCharacter = Character(apiKey: apiKey, sp: 7);
 
             var repo = new Mock<IRepository>();
-            repo.Setup(x => x.Characters).ReturnsAsync(new List<evefifo.model.Character> { oldCharacter });
+            repo.Setup(x => x.Characters).ReturnsAsync(new List<Character> { oldCharacter });
             repo.Setup(x => x.CharacterFromApi(apiKey, (int)oldCharacter.Id)).ReturnsAsync(updatedCharacter);
 
             ModelCharacter.UpdateExisting(repo.Object).Wait();
@@ -28,10 +25,10 @@ namespace tests
             repo.Verify(x => x.Replace(oldCharacter, updatedCharacter));
         }
 
-        private static evefifo.model.Character Character(string name=null, evefifo.model.ApiKey apiKey=null, int? id=null, int? sp=null)
+        private static Character Character(string name=null, ApiKey apiKey = null, int? id=null, int? sp=null)
         {
-            var _apiKey = new evefifo.model.ApiKey { Id = 1234, Secret = "asdf" };
-            return new evefifo.model.Character
+            var _apiKey = new ApiKey { Id = 1234, Secret = "asdf" };
+            return new Character
             {
                 Name = name ?? "Foo",
                 ApiKey = apiKey ?? _apiKey,
