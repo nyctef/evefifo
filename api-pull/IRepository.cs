@@ -8,6 +8,7 @@ namespace evefifo.api_pull
     public interface IRepository
     {
         Task<List<model.Character>> Characters { get; }
+        void AddCharacter(model.Character character);
         Task<model.Character> CharacterFromApi(model.ApiKey charKey, int charId);
         void Replace(model.Character character, model.Character updatedChar);
     }

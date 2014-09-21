@@ -25,6 +25,21 @@ namespace tests
             repo.Verify(x => x.Replace(oldCharacter, updatedCharacter));
         }
 
+        [Test]
+        public void CanAddNewCharacter()
+        {
+            var apiKey = new ApiKey { Id = 1234, Secret = "asdf" };
+            const int charId = 3;
+            var character = Character(apiKey: apiKey, id: charId);
+
+            var repo = new Mock<IRepository>();
+            repo.Setup(x => x.CharacterFromApi(apiKey, charId)).ReturnsAsync(character);
+
+            ModelCharacter.AddNew(repo.Object, apiKey, charId).Wait();
+
+            repo.Verify(x => x.AddCharacter(character));
+        }
+
         private static Character Character(string name=null, ApiKey apiKey = null, int? id=null, int? sp=null)
         {
             return new Character

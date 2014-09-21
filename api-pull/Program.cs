@@ -18,26 +18,16 @@ namespace evefifo.api_pull
                 if (args.Length > 2)
                 {
                     var charId = args[0];
-                    var apiKey = args[1];
+                    var apiKeyId = args[1];
                     var apiSecret = args[2];
-
-                    AddNewCharacter(repo, Int32.Parse(apiKey), apiSecret, Int32.Parse(charId)).Wait();
+                    var apiKey = new model.ApiKey { Id = Int32.Parse(apiKeyId), Secret = apiSecret };
+                    ModelCharacter.AddNew(repo, apiKey, Int32.Parse(charId)).Wait();
                 }
                 else
                 {
                     ModelCharacter.UpdateExisting(repo).Wait();
                 }
-            }
-        }
-
-        static async Task AddNewCharacter(IRepository repo, int apiKey, string apiSecret, int charId)
-        {
-            var character = await repo.CharacterFromApi(new model.ApiKey { Id = apiKey, Secret = apiSecret }, charId);
-
-            using (var db = new EvefifoContext())
-            {
-                db.Characters.Add(character);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
     }

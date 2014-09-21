@@ -10,8 +10,6 @@ namespace evefifo.api_pull
 {
     public static class ModelCharacter
     {
-        
-
         public static async Task UpdateExisting(IRepository repo)
         {
             foreach (var character in await repo.Characters)
@@ -19,6 +17,12 @@ namespace evefifo.api_pull
                 var updatedChar = await repo.CharacterFromApi(character.ApiKey, (int)character.Id);
                 repo.Replace(character, updatedChar);
             }
+        }
+
+        public static async Task AddNew(IRepository repo, model.ApiKey apiKey, int charId)
+        {
+            var character = await repo.CharacterFromApi(apiKey, charId);
+            repo.AddCharacter(character);
         }
     }
 }

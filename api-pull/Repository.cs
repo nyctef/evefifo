@@ -58,5 +58,10 @@ namespace evefifo.api_pull
         {
             m_Db.Entry(character).CurrentValues.SetValues(updatedChar);
         }
+
+        public void AddCharacter(model.Character character)
+        {
+            m_Db.Characters.Add(character);
+        }
     }
 }
