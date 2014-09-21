@@ -38,6 +38,7 @@ namespace tests
                         CorpName = "Goonfleet",
                         SecStatus = -9.9,
                         ApiKey = new ApiKey { Id = 1234, Secret = "asdf" },
+                        SkillQueue = new SkillQueue(new List<SkillQueue.Entry> { new SkillQueue.Entry(1, "two", 3, 4, 5, DateTime.Now, DateTime.Now) }),
                     };
 
                     db.Characters.Add(character);
@@ -49,6 +50,7 @@ namespace tests
                     var character = db.Characters.Single();
                     Assert.AreEqual("The Mittani", character.Name);
                     Assert.AreEqual(1234, character.ApiKey.Id);
+                    Assert.AreEqual(1, character.SkillQueue.Entries.Count);
                 }
             }
         }
