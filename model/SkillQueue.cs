@@ -41,6 +41,16 @@ namespace evefifo.model
             public DateTime StartTime { get { return m_StartTime; } }
         }
 
+        public bool HasSpace()
+        {
+            return !Entries.Any(e => e.EndTime > DateTime.Now.AddDays(1));
+        }
+
+        public bool IsEmpty()
+        {
+            return !Entries.Any();
+        }
+
         public SkillQueue(List<Entry> entries)
         {
             m_Entries = entries;
