@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace tests
 {
+
+#if !NCRUNCH
+
     [SetUpFixture]
     public class SetupFixture
     {
@@ -35,4 +38,7 @@ namespace tests
             }
         }
     }
+
+#endif
+
 }
