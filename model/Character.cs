@@ -19,5 +19,16 @@ namespace evefifo.model
         public long SP { get; set; }
         public long ApiKeyId { get; set; }
         public virtual ApiKey ApiKey { get; set; }
+
+        [Column("SkillQueue")]
+        public string SkillQueueJSON
+        {
+            get { return SkillQueue.ToJSON(); }
+            set { SkillQueue = SkillQueue.FromJSON(value); }
+        }
+        [NotMapped]
+        public SkillQueue SkillQueue { get; set; }
+
+
     }
 }

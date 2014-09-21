@@ -1,4 +1,5 @@
 ﻿using eZet.EveLib.Modules;
+using eZet.EveLib.Modules.Models.Character;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -32,6 +33,7 @@ namespace evefifo.api_pull
             var apiChar = new Character(charKey, charId);
             var charInfo = (await apiChar.GetCharacterInfoAsync()).Result;
             var charSheet = (await apiChar.GetCharacterSheetAsync()).Result;
+            var skillQueue = (await apiChar.GetSkillQueueAsync()).Result;
             return new model.Character
             {
                 Id = charId,
@@ -41,8 +43,15 @@ namespace evefifo.api_pull
                 CloneSP = charSheet.CloneSkillPoints,
                 SP = charInfo.SkillPoints,
                 SecStatus = charInfo.SecurityStatus,
+                SkillQueue = SkillQueue(skillQueue),
                 ApiKey = new model.ApiKey { Id = charKey.KeyId, Secret = charKey.VCode }
             };
+        }
+
+        public model.SkillQueue SkillQueue(SkillQueue queue)
+        {
+            var queueEntries = queue.Queue.Select(x => new model.SkillQueue.Entry(x.TypeId, "unknown", (byte)x.Level, x.StartSp, x.EndSp, x.StartTime, x.EndTime));
+            return new model.SkillQueue(queueEntries.ToList());
         }
 
         public void Replace(model.Character character, model.Character updatedChar)

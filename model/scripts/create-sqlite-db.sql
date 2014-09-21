@@ -6,6 +6,7 @@ CREATE TABLE Characters (
     SP INTEGER,
     SecStatus REAL,
     CloneName TEXT,
+    SkillQueue TEXT,
     ApiKeyId INTEGER
 );
 
