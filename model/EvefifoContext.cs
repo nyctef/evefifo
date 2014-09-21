@@ -11,5 +11,6 @@ namespace evefifo.model
     {
         public DbSet<Character> Characters { get; set; }
         public DbSet<ApiKey> ApiKeys { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
     }
 }

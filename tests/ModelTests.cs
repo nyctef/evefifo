@@ -53,6 +53,34 @@ namespace tests
                     Assert.AreEqual(1, character.SkillQueue.Entries.Count);
                 }
             }
+
+            [Test]
+            public void Notification()
+            {
+                DateTime now = DateTime.Now;
+                using (var db = new EvefifoContext())
+                {
+                    var notification = new Notification
+                    {
+                        Character = new Character { Id = 1, SkillQueue = new SkillQueue(null) },
+                        LastNotifiedDate = now,
+                        NotificationText = "this is a notification",
+                        NotificationType = "test-notification",
+                    };
+
+                    db.Notifications.Add(notification);
+                    db.SaveChanges();
+                }
+
+                using (var db = new EvefifoContext())
+                {
+                    var notification = db.Notifications.Single();
+                    Assert.AreEqual(1, notification.Character.Id);
+                    Assert.AreEqual("this is a notification", notification.NotificationText);
+                    Assert.AreEqual("test-notification", notification.NotificationType);
+                    Assert.AreEqual(now, notification.LastNotifiedDate);
+                }
+            }
         }
 
     }

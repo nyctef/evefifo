@@ -14,3 +14,11 @@ CREATE TABLE ApiKeys (
     Id INTEGER PRIMARY KEY,
     Secret TEXT
 );
+
+CREATE TABLE Notifications (
+    Id INTEGER PRIMARY KEY,
+    CharacterId INTEGER,
+    NotificationType TEXT,
+    NotificationText TEXT,
+    LastNotifiedDate TEXT
+);
