@@ -26,6 +26,14 @@ namespace evefifo.api_pull
             }
         }
 
+        public Task<List<model.Notification>> Notifications
+        {
+            get
+            {
+                return m_Db.Notifications.ToListAsync();
+            }
+        }
+
         public async Task<model.Character> CharacterFromApi(model.ApiKey apiKey, int charId)
         {
             var charKey = new CharacterKey(apiKey.Id, apiKey.Secret);
@@ -62,6 +70,16 @@ namespace evefifo.api_pull
         public void AddCharacter(model.Character character)
         {
             m_Db.Characters.Add(character);
+        }
+
+        public void AddNotification(model.Notification notification)
+        {
+            m_Db.Notifications.Add(notification);
+        }
+
+        public void RemoveNotification(model.Notification notification)
+        {
+            m_Db.Notifications.Remove(notification);
         }
     }
 }

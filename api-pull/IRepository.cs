@@ -11,5 +11,9 @@ namespace evefifo.api_pull
         void AddCharacter(model.Character character);
         Task<model.Character> CharacterFromApi(model.ApiKey charKey, int charId);
         void Replace(model.Character character, model.Character updatedChar);
+
+        Task<List<model.Notification>> Notifications { get; }
+        void AddNotification(model.Notification notification);
+        void RemoveNotification(model.Notification notification);
     }
 }

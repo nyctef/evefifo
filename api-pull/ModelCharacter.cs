@@ -4,7 +4,6 @@ using evefifo.model;
 using eZet.EveLib.Modules;
 using System.Linq;
 using System.Threading.Tasks;
-using Character = eZet.EveLib.Modules.Character;
 
 namespace evefifo.api_pull
 {
@@ -15,6 +14,7 @@ namespace evefifo.api_pull
             foreach (var character in await repo.Characters)
             {
                 var updatedChar = await repo.CharacterFromApi(character.ApiKey, (int)character.Id);
+                CheckNotifications(repo, updatedChar);
                 repo.Replace(character, updatedChar);
             }
         }
@@ -23,6 +23,19 @@ namespace evefifo.api_pull
         {
             var character = await repo.CharacterFromApi(apiKey, charId);
             repo.AddCharacter(character);
+        }
+
+        public static void CheckNotifications(IRepository repo, model.Character character)
+        {
+            if (character.SkillQueue.HasSpace())
+            {
+                repo.AddNotification(new model.Notification
+                {
+                    Character = character,
+                    NotificationText = String.Format("{0} has free space in their skill queue.", character.Name),
+                    NotificationType = "queue-space",
+                });
+            }
         }
     }
 }
