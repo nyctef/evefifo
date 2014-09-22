@@ -21,5 +21,15 @@ namespace evefifo.tests.website
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             }
         }
+
+        [Test]
+        public async void UnknownPathReturns404()
+        {
+            using (var server = TestServer.Create<Startup>())
+            {
+                var response = await server.HttpClient.GetAsync("/asldkjfhalskdjfhlasdjfhas");
+                Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+            }
+        }
     }
 }

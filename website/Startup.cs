@@ -6,7 +6,7 @@ namespace evefifo.website
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseWelcomePage();
+            app.UseWelcomePage("/");
         }
     }
 }
