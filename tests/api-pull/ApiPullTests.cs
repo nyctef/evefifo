@@ -5,7 +5,7 @@ using evefifo.api_pull;
 using evefifo.model;
 using System;
 
-namespace evefifo.tests
+namespace evefifo.tests.api_pull
 {
     public class ApiPullTests
     {

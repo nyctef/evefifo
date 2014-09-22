@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace evefifo.tests
+namespace evefifo.tests.model
 {
     [TestFixture]
     public class CharacterTests
