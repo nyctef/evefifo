@@ -12,10 +12,15 @@ namespace evefifo.tests.website
 {
     public class Routing
     {
+        private static TestServer GetServer()
+        {
+            return TestServer.Create(Startup.Configuration());
+        }
+
         [Test]
         public async void RootPathReturns200()
         {
-            using (var server = TestServer.Create<Startup>())
+            using (var server = GetServer())
             {
                 var response = await server.HttpClient.GetAsync("/");
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);

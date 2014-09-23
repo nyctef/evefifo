@@ -1,4 +1,5 @@
 using Owin;
+using System;
 
 namespace evefifo.website
 {
@@ -6,7 +7,12 @@ namespace evefifo.website
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseWelcomePage("/");
+            Configuration()(app);
+        }
+
+        public static Action<IAppBuilder> Configuration()
+        {
+            return app => app.UseWelcomePage("/");
         }
     }
 }
