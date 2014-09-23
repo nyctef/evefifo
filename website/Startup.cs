@@ -7,10 +7,10 @@ namespace evefifo.website
     {
         public void Configuration(IAppBuilder app)
         {
-            Configuration()(app);
+            Configuration(new Repository())(app);
         }
 
-        public static Action<IAppBuilder> Configuration()
+        public static Action<IAppBuilder> Configuration(IRepository repository)
         {
             return app => app.UseWelcomePage("/");
         }
