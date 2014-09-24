@@ -16,11 +16,24 @@ namespace evefifo.website.controllers
     {
         public async Task Invoke(IDictionary<string, object> environment)
         {
-            var repo = (IRepository)environment["evefifo.Repository"];
+            IRepository repo = GetRepository(environment);
             var characters = await repo.Characters;
 
-            var template = await GetTemplateFile("CharacterList");
             var model = new CharacterListModel(characters);
+            string result = await CompileView("CharacterList", model);
+
+            await WriteResponse(environment, result);
+        }
+
+        private IRepository GetRepository(IDictionary<string, object> environment)
+        {
+            return (IRepository)environment["evefifo.Repository"];
+        }
+
+        private async Task<string> CompileView(string modelName, object model)
+        {
+            var template = await GetTemplateFile(modelName);
+
             string result;
             try
             {
@@ -34,6 +47,11 @@ namespace evefifo.website.controllers
                 throw new Exception(String.Join("\n", e.Errors), e);
             }
 
+            return result;
+        }
+
+        private async Task WriteResponse(IDictionary<string, object> environment, string result)
+        {
             environment["owin.ResponseStatusCode"] = HttpStatusCode.OK;
             var stream = (Stream)environment["owin.ResponseBody"];
             using (var writer = new StreamWriter(stream, System.Text.Encoding.UTF8, 1024, true))
