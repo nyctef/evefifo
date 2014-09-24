@@ -1,3 +1,4 @@
+using evefifo.website.routing;
 using Owin;
 using System;
 
@@ -12,7 +13,9 @@ namespace evefifo.website
 
         public static Action<IAppBuilder> Configuration(IRepository repository)
         {
-            return app => app.UseWelcomePage("/");
+            return app => {
+                app.UseRoutes(new Route("/", () => { }));
+            };
         }
     }
 }

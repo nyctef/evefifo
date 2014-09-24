@@ -64,6 +64,8 @@
   <ItemGroup>
     <Compile Include="IRepository.cs" />
     <Compile Include="Repository.cs" />
+    <Compile Include="routing\Route.cs" />
+    <Compile Include="routing\Routing.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
