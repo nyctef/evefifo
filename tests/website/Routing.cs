@@ -30,6 +30,17 @@ namespace evefifo.tests.website
         }
 
         [Test]
+        public async void RootPathReturnsCharacterList()
+        {
+            using (var server = GetServer())
+            {
+                var response = await server.HttpClient.GetAsync("/");
+                var title = await Utils.GetTitle(response);
+                StringAssert.Contains("Character List", title);
+            }
+        }
+
+        [Test]
         public async void UnknownPathReturns404()
         {
             using (var server = TestServer.Create<Startup>())
