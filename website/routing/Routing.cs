@@ -22,10 +22,13 @@ namespace evefifo.website.routing
 
         public async Task Invoke(IDictionary<string, object> environment)
         {
-            if (m_Routes.Any(x => x.Match == (string)environment["owin.RequestPath"]))
+            foreach (var route in m_Routes)
             {
-                environment["owin.ResponseStatusCode"] = HttpStatusCode.OK;
-                return;
+                if (route.Match == (string)environment["owin.RequestPath"])
+                {
+                    route.Action(environment);
+                    return;
+                }
             }
 
             await m_Next(environment);
