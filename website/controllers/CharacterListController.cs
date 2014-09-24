@@ -1,4 +1,6 @@
-﻿using RazorEngine;
+﻿using evefifo.website.models;
+using RazorEngine;
+using RazorEngine.Templating;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,8 +16,23 @@ namespace evefifo.website.controllers
     {
         public async Task Invoke(IDictionary<string, object> environment)
         {
+            var repo = (IRepository)environment["evefifo.Repository"];
+            var characters = await repo.Characters;
+
             var template = await GetTemplateFile("CharacterList");
-            string result = Razor.Parse(template, new { Model = "asdf" });
+            var model = new CharacterListModel(characters);
+            string result;
+            try
+            {
+                result = Razor.Parse(template, model);
+            }
+            catch (TemplateCompilationException e)
+            {
+                // Workaround for an issue where RazorEngine will just include the first message -
+                // this may be a warning instead of the error we want
+                // see http://forum.ncrunch.net/yaf_postst273_Tests-that-use-RazorEngine-get-odd-exception-when-NCrunch-is-the-runner.aspx
+                throw new Exception(String.Join("\n", e.Errors), e);
+            }
 
             environment["owin.ResponseStatusCode"] = HttpStatusCode.OK;
             var stream = (Stream)environment["owin.ResponseBody"];

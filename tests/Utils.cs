@@ -23,6 +23,12 @@ namespace evefifo.tests
             return GetHtml(await response.Content.ReadAsStringAsync());
         }
 
+        internal static async Task<HtmlNode> GetBody(HttpResponseMessage response)
+        {
+            var html = await GetHtml(response);
+            return html.DocumentNode.SelectSingleNode("/html/body");
+        }
+
         internal static async Task<string> GetTitle(HttpResponseMessage response)
         {
             var html = await GetHtml(response);

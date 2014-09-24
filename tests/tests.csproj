@@ -88,6 +88,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetupFixture.cs" />
     <Compile Include="Utils.cs" />
+    <Compile Include="website\CharacterListTests.cs" />
     <Compile Include="website\Routing.cs" />
   </ItemGroup>
   <ItemGroup>

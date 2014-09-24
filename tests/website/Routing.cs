@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Owin.Testing;
 using System.Net;
 using Moq;
+using evefifo.model;
 
 namespace evefifo.tests.website
 {
@@ -16,7 +17,8 @@ namespace evefifo.tests.website
         private static TestServer GetServer()
         {
             var repo = new Mock<IRepository>();
-            return TestServer.Create(Startup.Configuration(repo.Object));
+            repo.Setup(x => x.Characters).ReturnsAsync(new List<Character>());
+            return TestServer.Create(Startup.Configuration(context => repo.Object));
         }
 
         [Test]
