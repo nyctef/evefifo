@@ -16,7 +16,8 @@ namespace evefifo.website
         public static Action<IAppBuilder> Configuration(IRepository repository)
         {
             return app => {
-                app.UseRoutes(new Route("/", new CharacterListController().Invoke));
+                // TODO: Route should probably just be able to handle async things being passed into it (or be async by default)
+                app.UseRoutes(new Route("/", async env => { await new CharacterListController().Invoke(env); }));
             };
         }
     }
