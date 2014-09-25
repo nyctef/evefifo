@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace evefifo.website.controllers
 {
-    class CharacterListController
+    class CharacterController
     {
-        public async Task Invoke(IDictionary<string, object> environment)
+        public async Task List(IDictionary<string, object> environment)
         {
             IRepository repo = GetRepository(environment);
             var characterEntries = (await repo.Characters).Select(x => new CharacterListModel.CharacterEntry { Character = x, NumNotifications = x.Notifications.Count });

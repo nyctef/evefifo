@@ -87,7 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="controllers\CharacterListController.cs" />
+    <Compile Include="controllers\CharacterController.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="models\CharacterListModel.cs" />
     <Compile Include="Repository.cs" />
