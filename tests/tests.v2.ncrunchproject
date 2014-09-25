@@ -21,5 +21,5 @@
   <UseCPUArchitecture>AutoDetect</UseCPUArchitecture>
   <MSTestThreadApartmentState>STA</MSTestThreadApartmentState>
   <BuildProcessArchitecture>x86</BuildProcessArchitecture>
-  <AdditionalFilesToInclude>bin\Debug\x86\SQLite.Interop.dll;..\model\scripts\create-sqlite-db.sql</AdditionalFilesToInclude>
+  <AdditionalFilesToInclude>..\model\scripts\create-sqlite-db.sql</AdditionalFilesToInclude>
 </ProjectConfiguration>
