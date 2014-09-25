@@ -24,10 +24,5 @@ namespace evefifo.website
                 return m_Db.Characters.ToListAsync();
             }
         }
-
-        public async Task<List<Notification>> NotificationsForCharacter(Character character)
-        {
-            return await m_Db.Notifications.Where(x => x.Character == character).ToListAsync();
-        }
     }
 }

@@ -3,6 +3,7 @@ using RazorEngine;
 using RazorEngine.Templating;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -17,9 +18,8 @@ namespace evefifo.website.controllers
         public async Task Invoke(IDictionary<string, object> environment)
         {
             IRepository repo = GetRepository(environment);
-            var characters = await repo.Characters;
-            var characterEntries = characters.Select(async x => new CharacterListModel.CharacterEntry { Character = x, NumNotifications = (await repo.NotificationsForCharacter(x)).Count });
-            var model = new CharacterListModel((await Task.WhenAll(characterEntries)).ToList());
+            var characterEntries = (await repo.Characters).Select(x => new CharacterListModel.CharacterEntry { Character = x, NumNotifications = x.Notifications.Count });
+            var model = new CharacterListModel(characterEntries.ToList());
             string result = await CompileView("CharacterList", model);
 
             await WriteResponse(environment, result);

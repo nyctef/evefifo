@@ -19,7 +19,6 @@ namespace evefifo.model
         public long SP { get; set; }
         public long ApiKeyId { get; set; }
         public virtual ApiKey ApiKey { get; set; }
-
         [Column("SkillQueue")]
         public string SkillQueueJSON
         {
@@ -28,7 +27,6 @@ namespace evefifo.model
         }
         [NotMapped]
         public SkillQueue SkillQueue { get; set; }
-
-
+        public virtual ICollection<Notification> Notifications { get; set; }
     }
 }
