@@ -12,7 +12,7 @@
 
     <ul>
         @foreach (var c in Model.Characters) {
-            <li>@c.Name</li>
+            <li>@c.Character.Name  (@c.NumNotifications)</li>
         }
     </ul>
 

@@ -22,11 +22,15 @@ namespace evefifo.tests.website
         public async Task CharacterListContainsCharactersInRepo()
         {
             var repo = new Mock<IRepository>();
+            var char1 = new Character { Name = "char1" };
+            var char2 = new Character { Name = "char2" };
             repo.Setup(x => x.Characters).ReturnsAsync(new List<Character>
             {
-                new Character { Name = "char1" },
-                new Character { Name = "char2" }
+                char1, char2
             });
+
+            repo.Setup(x => x.NotificationsForCharacter(char1)).ReturnsAsync(new List<Notification>());
+            repo.Setup(x => x.NotificationsForCharacter(char2)).ReturnsAsync(new List<Notification>() { null, null });
 
             using (var server = GetServer(repo.Object))
             {

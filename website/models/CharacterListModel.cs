@@ -9,13 +9,19 @@ namespace evefifo.website.models
 {
     public class CharacterListModel
     {
-        private readonly List<Character> m_Characters;
+        public class CharacterEntry
+        {
+            public Character Character { get; set; }
+            public int NumNotifications { get; set; }
+        }
 
-        public CharacterListModel(List<Character> characters)
+        private readonly List<CharacterEntry> m_Characters;
+
+        public CharacterListModel(List<CharacterEntry> characters)
         {
             m_Characters = characters;
         }
 
-        public List<Character> Characters { get { return m_Characters; } }
+        public List<CharacterEntry> Characters { get { return m_Characters; } }
     }
 }

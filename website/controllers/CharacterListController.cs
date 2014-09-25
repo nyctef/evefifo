@@ -18,8 +18,8 @@ namespace evefifo.website.controllers
         {
             IRepository repo = GetRepository(environment);
             var characters = await repo.Characters;
-
-            var model = new CharacterListModel(characters);
+            var characterEntries = characters.Select(async x => new CharacterListModel.CharacterEntry { Character = x, NumNotifications = (await repo.NotificationsForCharacter(x)).Count });
+            var model = new CharacterListModel((await Task.WhenAll(characterEntries)).ToList());
             string result = await CompileView("CharacterList", model);
 
             await WriteResponse(environment, result);

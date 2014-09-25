@@ -7,5 +7,7 @@ namespace evefifo.website
     public interface IRepository
     {
         Task<List<Character>> Characters { get; }
+
+        Task<List<Notification>> NotificationsForCharacter(Character x);
     }
 }
