@@ -35,8 +35,8 @@ namespace evefifo.tests.website
             using (var server = GetServer(repo.Object))
             {
                 var body = await Utils.GetBody(await server.HttpClient.GetAsync("/"));
-                StringAssert.Contains("char1", body.InnerText);
-                StringAssert.Contains("char2", body.InnerText);
+                StringAssert.Contains("char1 (0)", body.InnerText);
+                StringAssert.Contains("char2 (2)", body.InnerText);
             }
         }
     }
