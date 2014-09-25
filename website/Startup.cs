@@ -32,8 +32,7 @@ namespace evefifo.website
                         await next.Invoke(env);
                     }
                 })));
-                // TODO: Route should probably just be able to handle async things being passed into it (or be async by default)
-                app.UseRoutes(new Route("/", async env => { await new CharacterListController().Invoke(env); }));
+                app.UseRoutes(new Route("/", new CharacterListController().Invoke));
             };
         }
     }
