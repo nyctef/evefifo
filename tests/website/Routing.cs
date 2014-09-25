@@ -17,7 +17,15 @@ namespace evefifo.tests.website
         private static TestServer GetServer()
         {
             var repo = new Mock<IRepository>();
-            repo.Setup(x => x.Characters).ReturnsAsync(new List<Character>());
+            var bob = new Character {
+                Name = "Bob",
+                Notifications = new List<Notification>(),
+                SkillQueue = new SkillQueue(new List<SkillQueue.Entry> { new SkillQueue.Entry(123, "a skill", 3, 2, 3, DateTime.Now, DateTime.Now) })
+            };
+            repo.Setup(x => x.Characters).ReturnsAsync(new List<Character> {
+                bob
+            });
+            repo.Setup(x => x.Character(1234)).ReturnsAsync(bob);
             return TestServer.Create(Startup.Configuration(context => repo.Object));
         }
 
@@ -39,6 +47,17 @@ namespace evefifo.tests.website
                 var response = await server.HttpClient.GetAsync("/");
                 var title = await Utils.GetTitle(response);
                 StringAssert.Contains("Character List", title);
+            }
+        }
+
+        [Test]
+        public async void CharacterPathReturnsCharacterDetails()
+        {
+            using (var server = GetServer())
+            {
+                var response = await server.HttpClient.GetAsync("/character/1234");
+                var title = await Utils.GetTitle(response);
+                StringAssert.Contains("Bob", title);
             }
         }
 

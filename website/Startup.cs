@@ -32,7 +32,13 @@ namespace evefifo.website
                         await next.Invoke(env);
                     }
                 })));
-                app.UseRoutes(new Route("/", new CharacterController().List));
+
+                var characterController = new CharacterController();
+
+                app.UseRoutes(
+                    new Route("/", characterController.List),
+                    new Route("/character/{id}", characterController.Show)
+                );
             };
         }
     }

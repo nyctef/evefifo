@@ -24,5 +24,10 @@ namespace evefifo.website
                 return m_Db.Characters.ToListAsync();
             }
         }
+
+        public Task<Character> Character(int id)
+        {
+            return m_Db.Characters.FindAsync(id);
+        }
     }
 }

@@ -17,10 +17,22 @@ namespace evefifo.website.controllers
     {
         public async Task List(IDictionary<string, object> environment)
         {
-            IRepository repo = GetRepository(environment);
+            var repo = GetRepository(environment);
             var characterEntries = (await repo.Characters).Select(x => new CharacterListModel.CharacterEntry { Character = x, NumNotifications = x.Notifications.Count });
             var model = new CharacterListModel(characterEntries.ToList());
             string result = await CompileView("CharacterList", model);
+
+            await WriteResponse(environment, result);
+        }
+
+        public async Task Show(IDictionary<string, object> environment)
+        {
+            var repo = GetRepository(environment);
+            var parameters = (IDictionary<string, string>)environment["evefifo.RequestParameters"];
+            var characterId = Convert.ToInt32(parameters["id"]);
+            var character = await repo.Character(characterId);
+            var model = new CharacterModel(character);
+            string result = await CompileView("Character", model);
 
             await WriteResponse(environment, result);
         }

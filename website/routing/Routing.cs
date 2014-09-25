@@ -24,9 +24,11 @@ namespace evefifo.website.routing
         {
             foreach (var route in m_Routes)
             {
-                if (route.Match == (string)environment["owin.RequestPath"])
+                RouteMatch routeMatch = route.Matches((string)environment["owin.RequestPath"]);
+                if (routeMatch.Success)
                 {
-                    route.Action(environment);
+                    environment["evefifo.RequestParameters"] = routeMatch.Parameters;
+                    await route.Action(environment);
                     return;
                 }
             }

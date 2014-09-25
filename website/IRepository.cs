@@ -8,5 +8,7 @@ namespace evefifo.website
     public interface IRepository
     {
         Task<List<Character>> Characters { get; }
+
+        Task<Character> Character(int id);
     }
 }
