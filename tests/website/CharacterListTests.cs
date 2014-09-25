@@ -21,6 +21,27 @@ namespace evefifo.tests.website
         [Test]
         public async Task CharacterListContainsCharactersInRepo()
         {
+
+            using (var server = GetServer(CreateRepo()))
+            {
+                var body = await Utils.GetBody(await server.HttpClient.GetAsync("/"));
+                StringAssert.Contains("char1 (0)", body.InnerText);
+                StringAssert.Contains("char2 (2)", body.InnerText);
+            }
+        }
+
+        [Test]
+        public async Task CharacterListReturnsHtml()
+        {
+            using (var server = GetServer(CreateRepo()))
+            {
+                var response = await server.HttpClient.GetAsync("/");
+                StringAssert.AreEqualIgnoringCase("text/html", response.Content.Headers.GetValues("content-type").Single());
+            }
+        }
+
+        private static IRepository CreateRepo()
+        {
             var repo = new Mock<IRepository>();
             var char1 = new Character { Name = "char1", Notifications = new List<Notification> { } };
             var char2 = new Character { Name = "char2", Notifications = new List<Notification> { null, null } };
@@ -28,13 +49,8 @@ namespace evefifo.tests.website
             {
                 char1, char2
             });
-
-            using (var server = GetServer(repo.Object))
-            {
-                var body = await Utils.GetBody(await server.HttpClient.GetAsync("/"));
-                StringAssert.Contains("char1 (0)", body.InnerText);
-                StringAssert.Contains("char2 (2)", body.InnerText);
-            }
+            return repo.Object;
         }
+
     }
 }

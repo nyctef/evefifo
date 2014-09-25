@@ -53,6 +53,8 @@ namespace evefifo.website.controllers
         private async Task WriteResponse(IDictionary<string, object> environment, string result)
         {
             environment["owin.ResponseStatusCode"] = HttpStatusCode.OK;
+            var headers = (IDictionary<string, string[]>)environment["owin.ResponseHeaders"];
+            headers["Content-Type"] = new[] { "text/html" };
             var stream = (Stream)environment["owin.ResponseBody"];
             using (var writer = new StreamWriter(stream, System.Text.Encoding.UTF8, 1024, true))
             {
