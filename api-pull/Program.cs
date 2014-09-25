@@ -17,9 +17,9 @@ namespace evefifo.api_pull
                 var repo = new Repository(db);
                 if (args.Length > 2)
                 {
-                    var charId = args[0];
-                    var apiKeyId = args[1];
-                    var apiSecret = args[2];
+                    var charId = args[0].Trim();
+                    var apiKeyId = args[1].Trim();
+                    var apiSecret = args[2].Trim();
                     var apiKey = new model.ApiKey { Id = Int32.Parse(apiKeyId), Secret = apiSecret };
                     ModelCharacter.AddNew(repo, apiKey, Int32.Parse(charId)).Wait();
                 }
