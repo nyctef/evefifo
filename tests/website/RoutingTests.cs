@@ -12,7 +12,7 @@ using evefifo.model;
 
 namespace evefifo.tests.website
 {
-    public class Routing
+    public class RoutingTests
     {
         private static TestServer GetServer()
         {

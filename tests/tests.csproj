@@ -90,7 +90,7 @@
     <Compile Include="Utils.cs" />
     <Compile Include="website\CharacterListTests.cs" />
     <Compile Include="website\RouteTests.cs" />
-    <Compile Include="website\Routing.cs" />
+    <Compile Include="website\RoutingTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
