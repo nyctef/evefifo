@@ -1,25 +1,16 @@
-﻿<html>
+﻿@{ 
+    Layout = "Layout";
+    ViewBag.Title = @Model.Character.Name;
+}
 
-<head>
+Character details for @Model.Character.Name
 
-    <title>evefifo - @Model.Character.Name</title>
-
-</head>
-
-<body>
-
-    Character details for @Model.Character.Name
-
-    <p>
-        Currently training 
-        <ul>
-            @foreach (var skill in @Model.Character.SkillQueue.Entries)
-            {
-                <li>@skill.SkillName</li>
-            }
-        </ul>
-    </p>
-
-</body>
-
-</html>
+<p>
+    Currently training
+    <ul>
+        @foreach (var skill in @Model.Character.SkillQueue.Entries)
+        {
+            <li>@skill.SkillName</li>
+        }
+    </ul>
+</p>

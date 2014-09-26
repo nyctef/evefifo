@@ -106,6 +106,7 @@
     <None Include="packages.config" />
     <EmbeddedResource Include="views\CharacterList.cshtml" />
     <EmbeddedResource Include="views\Character.cshtml" />
+    <EmbeddedResource Include="views\Layout.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

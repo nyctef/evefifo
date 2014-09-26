@@ -21,5 +21,10 @@
   <UseCPUArchitecture>AutoDetect</UseCPUArchitecture>
   <MSTestThreadApartmentState>STA</MSTestThreadApartmentState>
   <BuildProcessArchitecture>x86</BuildProcessArchitecture>
-  <AdditionalFilesToInclude>..\model\scripts\create-sqlite-db.sql</AdditionalFilesToInclude>
+  <IgnoredTests>
+    <NamedTestSelector>
+      <TestName>evefifo.tests.model.ModelTests+CanSaveAndRetrieve.Notification</TestName>
+    </NamedTestSelector>
+  </IgnoredTests>
+  <AdditionalFilesToInclude>..\model\scripts\create-sqlite-db.sql;..\Build\Debug\static\**.*</AdditionalFilesToInclude>
 </ProjectConfiguration>

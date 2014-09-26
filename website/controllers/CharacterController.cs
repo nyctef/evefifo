@@ -1,5 +1,6 @@
 ﻿using evefifo.website.models;
 using RazorEngine;
+using RazorEngine.Configuration;
 using RazorEngine.Templating;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,11 @@ namespace evefifo.website.controllers
 {
     class CharacterController
     {
+        public CharacterController()
+        {
+            Razor.Compile(GetTemplateFile("Layout").Result, "Layout");
+        }
+
         public async Task List(IDictionary<string, object> environment)
         {
             var repo = GetRepository(environment);
