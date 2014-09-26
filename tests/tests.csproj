@@ -91,6 +91,7 @@
     <Compile Include="website\CharacterListTests.cs" />
     <Compile Include="website\RouteTests.cs" />
     <Compile Include="website\RoutingTests.cs" />
+    <Compile Include="website\StaticFilesTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
