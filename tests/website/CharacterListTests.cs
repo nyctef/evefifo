@@ -21,7 +21,6 @@ namespace evefifo.tests.website
         [Test]
         public async Task CharacterListContainsCharactersInRepo()
         {
-
             using (var server = GetServer(CreateRepo()))
             {
                 var body = await Utils.GetBody(await server.HttpClient.GetAsync("/"));
