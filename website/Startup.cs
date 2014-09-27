@@ -1,10 +1,17 @@
 using evefifo.model;
 using evefifo.website.controllers;
 using evefifo.website.routing;
+using Microsoft.Owin;
 using Owin;
 using System;
 using System.Net;
 using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
+
+
+
+[assembly:OwinStartup(typeof(evefifo.website.Startup))]
+
+
 
 namespace evefifo.website
 {
