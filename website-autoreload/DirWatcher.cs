@@ -18,15 +18,15 @@ namespace website_autoreload
             m_Watcher.Filter = "*.*";
             m_Watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.CreationTime;
             m_Watcher.IncludeSubdirectories = true;
-            m_Watcher.Changed += (obj, args) => Fire();
-            m_Watcher.Created += (obj, args) => Fire();
-            m_Watcher.Deleted += (obj, args) => Fire();
-            m_Watcher.Renamed += (obj, args) => Fire();
+            m_Watcher.Changed += (obj, args) => Fire(args);
+            m_Watcher.Created += (obj, args) => Fire(args);
+            m_Watcher.Deleted += (obj, args) => Fire(args);
             m_Watcher.EnableRaisingEvents = true;
         }
 
-        private void Fire()
+        private void Fire(FileSystemEventArgs e)
         {
+            Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType.ToString().ToLower());
             var handler = OnChanged;
             if (handler != null)
             {
