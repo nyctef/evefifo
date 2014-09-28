@@ -23,5 +23,16 @@ namespace evefifo.website.models
                 return m_Character;
             }
         }
+
+        public string TotalQueueLength
+        {
+            get
+            {
+                var skillQueue = m_Character.SkillQueue;
+                if (skillQueue.IsEmpty()) return "Empty";
+                var latestSkill = skillQueue.Entries.OrderByDescending(x => x.EndTime).First();
+                return (latestSkill.EndTime - DateTime.Now).ToReadableString();
+            }
+        }
     }
 }

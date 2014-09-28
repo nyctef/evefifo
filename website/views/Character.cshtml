@@ -1,16 +1,20 @@
-﻿@{ 
+﻿@{
     Layout = "Layout";
     ViewBag.Title = @Model.Character.Name;
+    var chr = @Model.Character;
 }
 
-Character details for @Model.Character.Name
+Character details for @chr.Name
 
 <p>
     Currently training
     <ul>
-        @foreach (var skill in @Model.Character.SkillQueue.Entries)
+        @foreach (var skill in @chr.SkillQueue.Entries)
         {
             <li>@skill.SkillName</li>
         }
     </ul>
 </p>
+<p>Total time left in queue: @Model.TotalQueueLength</p>
+<p>Current SP: @chr.SP</p>
+<p>Current clone: @chr.CloneName (@chr.CloneSP)</p>

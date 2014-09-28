@@ -89,6 +89,7 @@
     <Compile Include="SetupFixture.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="website\CharacterListTests.cs" />
+    <Compile Include="website\CharacterTests.cs" />
     <Compile Include="website\RouteTests.cs" />
     <Compile Include="website\RoutingTests.cs" />
     <Compile Include="website\StaticFilesTests.cs" />
