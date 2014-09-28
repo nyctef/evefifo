@@ -13,9 +13,14 @@ namespace evefifo.model
 {
     public class Repository : IRepository
     {
+        public static IRepository Create()
+        {
+            return new Repository(new model.EvefifoContext());
+        }
+
         private readonly model.EvefifoContext m_Db;
 
-        public Repository(model.EvefifoContext db)
+        internal Repository(model.EvefifoContext db)
         {
             m_Db = db;
         }
@@ -87,6 +92,12 @@ namespace evefifo.model
         public void RemoveNotification(model.Notification notification)
         {
             m_Db.Notifications.Remove(notification);
+        }
+
+        public void Dispose()
+        {
+            m_Db.SaveChanges();
+            m_Db.Dispose();
         }
     }
 }

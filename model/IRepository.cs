@@ -2,10 +2,11 @@ using eZet.EveLib.Modules;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using evefifo.model;
+using System;
 
 namespace evefifo.model
 {
-    public interface IRepository
+    public interface IRepository : IDisposable
     {
         Task<List<model.Character>> Characters { get; }
         void AddCharacter(model.Character character);

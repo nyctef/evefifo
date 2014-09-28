@@ -19,23 +19,17 @@ namespace evefifo.website
     {
         public void Configuration(IAppBuilder app)
         {
-            Configuration(CreateRepository)(app);
+            Configuration(Repository.Create)(app);
         }
 
-        private static IRepository CreateRepository(EvefifoContext context)
-        {
-            return new Repository(context);
-        }
-
-        public static Action<IAppBuilder> Configuration(Func<EvefifoContext, IRepository> createRepository)
+        public static Action<IAppBuilder> Configuration(Func<IRepository> createRepository)
         {
             return app => {
                 app.UseErrorPage();
                 app.Use(new Func<AppFunc, AppFunc>(next => (async env =>
                 {
-                    using (var context = new EvefifoContext())
+                    using (var repository = createRepository())
                     {
-                        var repository = createRepository(context);
                         env["evefifo.Repository"] = repository;
                         await next.Invoke(env);
                     }

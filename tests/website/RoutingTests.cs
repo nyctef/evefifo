@@ -26,7 +26,7 @@ namespace evefifo.tests.website
                 bob
             });
             repo.Setup(x => x.Character(1234)).ReturnsAsync(bob);
-            return TestServer.Create(Startup.Configuration(context => repo.Object));
+            return TestServer.Create(Startup.Configuration(() => repo.Object));
         }
 
         [Test]

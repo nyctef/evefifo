@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace evefifo.model
 {
-    public class EvefifoContext : DbContext
+    class EvefifoContext : DbContext
     {
         public DbSet<Character> Characters { get; set; }
         public DbSet<ApiKey> ApiKeys { get; set; }

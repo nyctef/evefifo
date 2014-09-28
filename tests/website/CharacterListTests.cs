@@ -15,7 +15,7 @@ namespace evefifo.tests.website
     {
         private static TestServer GetServer(IRepository repo)
         {
-            return TestServer.Create(Startup.Configuration(context => repo));
+            return TestServer.Create(Startup.Configuration(() => repo));
         }
 
         [Test]

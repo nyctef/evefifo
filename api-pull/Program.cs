@@ -11,9 +11,8 @@ namespace evefifo.api_pull
     {
         static void Main(string[] args)
         {
-            using (var db = new EvefifoContext())
+            using (var repo = Repository.Create())
             {
-                var repo = new Repository(db);
                 if (args.Length > 2)
                 {
                     var charId = args[0].Trim();
@@ -26,7 +25,6 @@ namespace evefifo.api_pull
                 {
                     ModelCharacter.UpdateExisting(repo).Wait();
                 }
-                db.SaveChanges();
             }
         }
     }
