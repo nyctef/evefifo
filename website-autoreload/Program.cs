@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,16 +13,29 @@ namespace website_autoreload
     {
         static void Main(string[] args)
         {
-            using (var runner = new OwinRunner())
+            var autoreloadPath = "_autoreload";
+            var lastUpdate = DateTime.Now;
+            using (var runner = new OwinRunner(autoreloadPath))
             {
-                runner.Start();
-
-                using (var watcher = new DirWatcher("."))
+                using (var dirCopy = new LiveDirCopy(new DirectoryInfo("."), autoreloadPath))
+                using (var watcher = new DirWatcher(".", autoreloadPath))
                 {
-                    watcher.OnChanged += (o, a) =>
-                    {
-                        runner.Start();
-                    };
+                    runner.Start();
+
+                    Observable.FromEventPattern(watcher, "OnChanged")
+                        .Select(a => Path.GetFullPath(((FileSystemEventArgs)a.EventArgs).FullPath))
+                        .Buffer(TimeSpan.FromMilliseconds(500))
+                        .Where(a => a.Any())
+                        .Select(paths => paths.Distinct())
+                        .Subscribe(paths =>
+                        {
+                            runner.Stop();
+                            foreach (var path in paths)
+                            {
+                                dirCopy.Update(path);
+                            }
+                            runner.Start();
+                        });
 
                     Console.WriteLine("...");
                     Console.ReadLine();
