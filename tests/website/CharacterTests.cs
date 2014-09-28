@@ -31,8 +31,8 @@ namespace evefifo.tests.website
             [Test]
             public void TotalQueueLengthTakesTZIntoAccount()
             {
-                var skillEnd = DateTime.UtcNow.AddMinutes(5);
                 var now = DateTime.Now;
+                var skillEnd = now.ToUniversalTime().AddMinutes(5);
 
                 var model = new CharacterModel(new Character
                 {
