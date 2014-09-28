@@ -11,7 +11,7 @@ Character details for @chr.Name
     <ul>
         @foreach (var skill in @chr.SkillQueue.Entries)
         {
-            <li>@skill.SkillName</li>
+            <li><img src="https://image.eveonline.com/Type/@(skill.SkillId)_32.png" />@skill.SkillName</li>
         }
     </ul>
 </p>
