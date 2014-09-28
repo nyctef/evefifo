@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,10 +23,11 @@ namespace website_autoreload
                 {
                     runner.Start();
 
-                    Observable.FromEventPattern(watcher, "OnChanged")
-                        .Select(a => Path.GetFullPath(((FileSystemEventArgs)a.EventArgs).FullPath))
-                        .Buffer(TimeSpan.FromMilliseconds(500))
-                        .Where(a => a.Any())
+                    Observable
+                        .FromEventPattern(watcher, "OnChanged")
+                        .Select(PathFromEventArgs)
+                        .Buffer(EveryHalfSecond())
+                        .Where(SomethingHasHappened)
                         .Select(paths => paths.Distinct())
                         .Subscribe(paths =>
                         {
@@ -41,6 +43,21 @@ namespace website_autoreload
                     Console.ReadLine();
                 }
             }
+        }
+
+        private static string PathFromEventArgs(EventPattern<object> a)
+        {
+            return Path.GetFullPath(((FileSystemEventArgs)a.EventArgs).FullPath);
+        }
+
+        private static TimeSpan EveryHalfSecond()
+        {
+            return TimeSpan.FromMilliseconds(500);
+        }
+
+        private static bool SomethingHasHappened(IEnumerable<string> things)
+        {
+            return things.Any();
         }
     }
 }
