@@ -65,7 +65,11 @@ namespace evefifo.model
 
         public static SkillQueue FromJSON(string json)
         {
-            return JsonConvert.DeserializeObject<SkillQueue>(json);
+            return JsonConvert.DeserializeObject<SkillQueue>(json, new JsonSerializerSettings
+            {
+                // the API returns UTC times but doesn't put TZ info on the timestamps. grr.
+                DateTimeZoneHandling = DateTimeZoneHandling.Utc, 
+            });
         }
     }
 }

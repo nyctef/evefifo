@@ -31,7 +31,7 @@ namespace evefifo.website.models
                 var skillQueue = m_Character.SkillQueue;
                 if (skillQueue.IsEmpty()) return "Empty";
                 var latestSkill = skillQueue.Entries.OrderByDescending(x => x.EndTime).First();
-                return (latestSkill.EndTime - DateTime.Now).ToReadableString();
+                return (latestSkill.EndTime.ToLocalTime() - DateTime.Now).ToReadableString();
             }
         }
     }

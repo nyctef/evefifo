@@ -27,6 +27,23 @@ namespace evefifo.tests.website
 
                 Assert.AreEqual("62 days, 59 minutes, 59 seconds", model.TotalQueueLength);
             }
+
+            [Test]
+            public void TotalQueueLengthTakesTZIntoAccount()
+            {
+                var skillEnd = DateTime.UtcNow.AddMinutes(5);
+                var now = DateTime.Now;
+
+                var model = new CharacterModel(new Character
+                {
+                    SkillQueue = new SkillQueue(new List<SkillQueue.Entry>
+                    {
+                        new SkillQueue.Entry(1, "skill", 2, 3, 4, now, skillEnd)
+                    })
+                });
+
+                Assert.AreEqual("4 minutes, 59 seconds", model.TotalQueueLength);
+            }
         }
     }
 }
