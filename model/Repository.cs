@@ -6,10 +6,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ApiCharacter = eZet.EveLib.Modules.Character;
+using ApiSkillQueue = eZet.EveLib.Modules.Models.Character.SkillQueue;
 
-namespace evefifo.api_pull
+namespace evefifo.model
 {
-    class Repository : IRepository
+    public class Repository : IRepository
     {
         private readonly model.EvefifoContext m_Db;
 
@@ -38,7 +40,7 @@ namespace evefifo.api_pull
         {
             var charKey = new CharacterKey(apiKey.Id, apiKey.Secret);
             await charKey.InitAsync();
-            var apiChar = new Character(charKey, charId);
+            var apiChar = new ApiCharacter(charKey, charId);
             var charInfo = (await apiChar.GetCharacterInfoAsync()).Result;
             var charSheet = (await apiChar.GetCharacterSheetAsync()).Result;
             var skillQueue = (await apiChar.GetSkillQueueAsync()).Result;
@@ -56,7 +58,12 @@ namespace evefifo.api_pull
             };
         }
 
-        public model.SkillQueue SkillQueue(SkillQueue queue)
+        public Task<Character> Character(int id)
+        {
+            return m_Db.Characters.FindAsync(id);
+        }
+
+        public model.SkillQueue SkillQueue(ApiSkillQueue queue)
         {
             var queueEntries = queue.Queue.Select(x => new model.SkillQueue.Entry(x.TypeId, "unknown", (byte)x.Level, x.StartSp, x.EndSp, x.StartTime, x.EndTime));
             return new model.SkillQueue(queueEntries.ToList());

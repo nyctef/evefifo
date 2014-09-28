@@ -1,7 +1,6 @@
 using System;
 using System.Data.Entity;
 using evefifo.model;
-using eZet.EveLib.Modules;
 using System.Linq;
 using System.Threading.Tasks;
 

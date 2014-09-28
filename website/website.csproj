@@ -92,10 +92,8 @@
   <ItemGroup>
     <Compile Include="controllers\CharacterController.cs" />
     <Compile Include="EnumerableExtensions.cs" />
-    <Compile Include="IRepository.cs" />
     <Compile Include="models\CharacterListModel.cs" />
     <Compile Include="models\CharacterModel.cs" />
-    <Compile Include="Repository.cs" />
     <Compile Include="routing\Route.cs" />
     <Compile Include="routing\RouteMatch.cs" />
     <Compile Include="routing\Routing.cs" />

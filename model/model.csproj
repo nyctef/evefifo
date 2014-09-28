@@ -37,6 +37,42 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EveLib.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\eZet.EveLib.2.0.3\lib\EveLib.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EveLib.Element43, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\eZet.EveLib.2.0.3\lib\EveLib.Element43.dll</HintPath>
+    </Reference>
+    <Reference Include="EveLib.EveCentral, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\eZet.EveLib.2.0.3\lib\EveLib.EveCentral.dll</HintPath>
+    </Reference>
+    <Reference Include="EveLib.EveCrest, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\eZet.EveLib.2.0.3\lib\EveLib.EveCrest.dll</HintPath>
+    </Reference>
+    <Reference Include="EveLib.EveMarketData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\eZet.EveLib.2.0.3\lib\EveLib.EveMarketData.dll</HintPath>
+    </Reference>
+    <Reference Include="EveLib.EveOnline, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\eZet.EveLib.2.0.3\lib\EveLib.EveOnline.dll</HintPath>
+    </Reference>
+    <Reference Include="EveLib.EveWho, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\eZet.EveLib.2.0.3\lib\EveLib.EveWho.dll</HintPath>
+    </Reference>
+    <Reference Include="EveLib.StaticData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\eZet.EveLib.2.0.3\lib\EveLib.StaticData.dll</HintPath>
+    </Reference>
+    <Reference Include="EveLib.ZKillboard, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\eZet.EveLib.2.0.3\lib\EveLib.ZKillboard.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -62,8 +98,10 @@
     <Compile Include="ApiKey.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="EvefifoContext.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="SkillQueue.cs" />
   </ItemGroup>
   <ItemGroup>

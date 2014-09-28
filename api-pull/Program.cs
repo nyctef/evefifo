@@ -1,5 +1,4 @@
 ﻿using evefifo.model;
-using eZet.EveLib.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;

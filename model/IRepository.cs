@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using evefifo.model;
 
-namespace evefifo.api_pull
+namespace evefifo.model
 {
     public interface IRepository
     {
@@ -11,6 +11,7 @@ namespace evefifo.api_pull
         void AddCharacter(model.Character character);
         Task<model.Character> CharacterFromApi(model.ApiKey charKey, int charId);
         void Replace(model.Character character, model.Character updatedChar);
+        Task<Character> Character(int id);
 
         Task<List<model.Notification>> Notifications { get; }
         void AddNotification(model.Notification notification);

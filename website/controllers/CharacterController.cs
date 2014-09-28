@@ -1,4 +1,5 @@
-﻿using evefifo.website.models;
+﻿using evefifo.model;
+using evefifo.website.models;
 using RazorEngine;
 using RazorEngine.Configuration;
 using RazorEngine.Templating;
