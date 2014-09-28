@@ -16,20 +16,19 @@ namespace website_autoreload
         {
             var autoreloadPath = "_autoreload";
             var lastUpdate = DateTime.Now;
+            using (var dirCopy = new LiveDirCopy(new DirectoryInfo("."), autoreloadPath))
             using (var runner = new OwinRunner(autoreloadPath))
+            using (var watcher = new DirWatcher(".", autoreloadPath))
             {
-                using (var dirCopy = new LiveDirCopy(new DirectoryInfo("."), autoreloadPath))
-                using (var watcher = new DirWatcher(".", autoreloadPath))
-                {
-                    runner.Start();
+                runner.Start();
 
-                    Observable
-                        .FromEventPattern(watcher, "OnChanged")
-                        .Select(PathFromEventArgs)
-                        .Buffer(EveryHalfSecond())
-                        .Where(SomethingHasHappened)
-                        .Select(paths => paths.Distinct())
-                        .Subscribe(paths =>
+                Observable
+                    .FromEventPattern(watcher, "OnChanged")
+                    .Select(PathFromEventArgs)
+                    .Buffer(EveryHalfSecond())
+                    .Where(SomethingHasHappened)
+                    .Select(paths => paths.Distinct())
+                    .Subscribe(paths =>
                         {
                             runner.Stop();
                             foreach (var path in paths)
@@ -39,9 +38,8 @@ namespace website_autoreload
                             runner.Start();
                         });
 
-                    Console.WriteLine("...");
-                    Console.ReadLine();
-                }
+                Console.WriteLine("...");
+                Console.ReadLine();
             }
         }
 
