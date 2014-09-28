@@ -18,3 +18,13 @@ Character details for @chr.Name
 <p>Total time left in queue: @Model.TotalQueueLength</p>
 <p>Current SP: @chr.SP</p>
 <p>Current clone: @chr.CloneName (@chr.CloneSP)</p>
+<p>
+    Current notifications:
+    <ul>
+        @foreach (var notification in @chr.Notifications)
+        {
+            <li>@notification.NotificationText</li>
+        }
+    </ul>
+
+</p>
