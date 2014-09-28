@@ -46,6 +46,7 @@ namespace evefifo.website
                     new Route("/", characterController.List),
                     new Route("/character/{id}", characterController.Show)
                 );
+                app.UseErrorPage();
             };
         }
     }
