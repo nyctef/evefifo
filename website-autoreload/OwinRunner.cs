@@ -23,7 +23,6 @@ namespace website_autoreload
             if (m_Process != null)
             {
                 Stop();
-                m_Process.Dispose();
             }
         }
 
@@ -52,6 +51,7 @@ namespace website_autoreload
         {
             m_Process.Kill();
             m_Process.WaitForExit();
+            m_Process.Dispose();
             m_Process = null;
         }
     }
