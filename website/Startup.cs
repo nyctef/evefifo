@@ -30,6 +30,7 @@ namespace evefifo.website
         public static Action<IAppBuilder> Configuration(Func<EvefifoContext, IRepository> createRepository)
         {
             return app => {
+                app.UseErrorPage();
                 app.Use(new Func<AppFunc, AppFunc>(next => (async env =>
                 {
                     using (var context = new EvefifoContext())
@@ -46,7 +47,6 @@ namespace evefifo.website
                     new Route("/", characterController.List),
                     new Route("/character/{id}", characterController.Show)
                 );
-                app.UseErrorPage();
             };
         }
     }
