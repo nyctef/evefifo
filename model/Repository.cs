@@ -25,6 +25,14 @@ namespace evefifo.model
             m_Db = db;
         }
 
+        public Task<List<model.ApiKey>> ApiKeys
+        {
+            get
+            {
+                return m_Db.ApiKeys.ToListAsync();
+            }
+        }
+
         public Task<List<model.Character>> Characters
         {
             get
@@ -77,6 +85,11 @@ namespace evefifo.model
         public void Replace(model.Character character, model.Character updatedChar)
         {
             m_Db.Entry(character).CurrentValues.SetValues(updatedChar);
+        }
+
+        public void AddApiKey(model.ApiKey apiKey)
+        {
+            m_Db.ApiKeys.Add(apiKey);
         }
 
         public void AddCharacter(model.Character character)

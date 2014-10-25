@@ -8,6 +8,9 @@ namespace evefifo.model
 {
     public interface IRepository : IDisposable
     {
+        Task<List<model.ApiKey>> ApiKeys { get; }
+        void AddApiKey(model.ApiKey apiKey);
+
         Task<List<model.Character>> Characters { get; }
         void AddCharacter(model.Character character);
         Task<model.Character> CharacterFromApi(model.ApiKey charKey, int charId);

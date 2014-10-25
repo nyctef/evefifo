@@ -95,6 +95,7 @@
     <EmbeddedResource Include="views\CharacterList.cshtml" />
     <EmbeddedResource Include="views\Character.cshtml" />
     <EmbeddedResource Include="views\Layout.cshtml" />
+    <EmbeddedResource Include="views\ApiKeyList.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
