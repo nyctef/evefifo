@@ -28,6 +28,18 @@ namespace evefifo.website
                 app.UseErrorPage();
                 app.Use(new Func<AppFunc, AppFunc>(next => (async env =>
                 {
+                    try
+                    {
+                        await next.Invoke(env);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        throw;
+                    }
+                })));
+                app.Use(new Func<AppFunc, AppFunc>(next => (async env =>
+                {
                     using (var repository = createRepository())
                     {
                         env["evefifo.Repository"] = repository;
