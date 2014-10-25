@@ -10,10 +10,12 @@ namespace evefifo.website.models
     public class CharacterModel
     {
         private readonly Character m_Character;
+        private readonly DateTime m_Now = DateTime.Now;
 
-        public CharacterModel(Character character)
+        public CharacterModel(Character character, DateTime? now = null)
         {
             m_Character = character;
+            m_Now = now ?? m_Now;
         }
 
         public Character Character
@@ -31,7 +33,7 @@ namespace evefifo.website.models
                 var skillQueue = m_Character.SkillQueue;
                 if (skillQueue.IsEmpty()) return "Empty";
                 var latestSkill = skillQueue.Entries.OrderByDescending(x => x.EndTime).First();
-                return (latestSkill.EndTime.ToLocalTime() - DateTime.Now).ToReadableString();
+                return (latestSkill.EndTime.ToLocalTime() - m_Now).ToReadableString();
             }
         }
     }

@@ -23,9 +23,9 @@ namespace evefifo.tests.website
                     {
                         new SkillQueue.Entry(1, "skill", 2, 3, 4, now, now.AddHours(25).AddMonths(2))
                     })
-                });
+                }, now);
 
-                Assert.AreEqual("62 days, 59 minutes, 59 seconds", model.TotalQueueLength);
+                Assert.AreEqual("62 days, 1 hour", model.TotalQueueLength);
             }
 
             [Test]
