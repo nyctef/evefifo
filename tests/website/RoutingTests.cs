@@ -62,6 +62,16 @@ namespace evefifo.tests.website
         }
 
         [Test]
+        public async void NonExistentCharacterPathReturns404()
+        {
+            using (var server = GetServer())
+            {
+                var response = await server.HttpClient.GetAsync("/character/9999");
+                Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+            }
+        }
+
+        [Test]
         public async void UnknownPathReturns404()
         {
             using (var server = TestServer.Create<Startup>())

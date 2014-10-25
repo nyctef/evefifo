@@ -37,6 +37,11 @@ namespace evefifo.website.controllers
             var parameters = (IDictionary<string, string>)environment["evefifo.RequestParameters"];
             var characterId = Convert.ToInt32(parameters["id"]);
             var character = await repo.Character(characterId);
+            if (character == null)
+            {
+                await Write404(environment);
+                return;
+            }
             var model = new CharacterModel(character);
             string result = await CompileView("Character", model);
 
@@ -78,6 +83,11 @@ namespace evefifo.website.controllers
             {
                 await writer.WriteAsync(result);
             }
+        }
+
+        private async Task Write404(IDictionary<string, object> environment)
+        {
+            environment["owin.ResponseStatusCode"] = HttpStatusCode.NotFound;
         }
 
         public async Task<string> GetTemplateFile(string viewName)
