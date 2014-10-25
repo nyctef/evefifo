@@ -72,7 +72,9 @@ namespace evefifo.tests.website
         [Test]
         public async void ApiKeysPathReturnsApiKeys()
         {
-            await ResourceAtPath("/apikeys").HasStatusCode(HttpStatusCode.OK);
+            var response = await ResourceAtPath("/apikeys");
+            response.HasStatusCode(HttpStatusCode.OK);
+            response.HasTitle("evefifo - Api keys");
         }
     }
 }

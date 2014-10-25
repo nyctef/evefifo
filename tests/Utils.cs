@@ -39,10 +39,20 @@ namespace evefifo.tests
             return title;
         }
 
+        internal static void HasStatusCode(this HttpResponseMessage response, HttpStatusCode statusCode)
+        {
+            Assert.AreEqual(statusCode, response.StatusCode);
+        }
+
         internal static async Task<HttpResponseMessage> HasStatusCode(this Task<HttpResponseMessage> response, HttpStatusCode statusCode)
         {
-            Assert.AreEqual(statusCode, (await response).StatusCode);
+            (await response).HasStatusCode(statusCode);
             return await response;
+        }
+
+        internal static void HasTitle(this HttpResponseMessage response, string title)
+        {
+            Assert.AreEqual(title, GetTitle(response).Result);
         }
 
         internal static async Task<HttpResponseMessage> HasTitle(this Task<HttpResponseMessage> response, string title)
