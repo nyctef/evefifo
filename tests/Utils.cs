@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using NUnit.Framework;
+using System.Net;
 
 namespace evefifo.tests
 {
@@ -36,6 +37,18 @@ namespace evefifo.tests
             Assert.NotNull(titleElement, "Should find element /html/head/title in returned webpage");
             var title = titleElement.InnerText;
             return title;
+        }
+
+        internal static async Task<HttpResponseMessage> HasStatusCode(this Task<HttpResponseMessage> response, HttpStatusCode statusCode)
+        {
+            Assert.AreEqual(statusCode, (await response).StatusCode);
+            return await response;
+        }
+
+        internal static async Task<HttpResponseMessage> HasTitle(this Task<HttpResponseMessage> response, string title)
+        {
+            Assert.AreEqual(title, await GetTitle(await response));
+            return await response;
         }
     }
 }

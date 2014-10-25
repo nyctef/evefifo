@@ -9,6 +9,8 @@ using Microsoft.Owin.Testing;
 using System.Net;
 using Moq;
 using evefifo.model;
+using System.Net.Http;
+using evefifo.tests;
 
 namespace evefifo.tests.website
 {
@@ -29,66 +31,48 @@ namespace evefifo.tests.website
             return TestServer.Create(Startup.Configuration(() => repo.Object));
         }
 
-        [Test]
-        public async void RootPathReturns200()
+        private static async Task<HttpResponseMessage> ResourceAtPath(string path)
         {
             using (var server = GetServer())
             {
-                var response = await server.HttpClient.GetAsync("/");
-                Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+                return await server.HttpClient.GetAsync(path);
             }
+        }
+
+        [Test]
+        public async void RootPathReturns200()
+        {
+            await ResourceAtPath("/").HasStatusCode(HttpStatusCode.OK);
         }
 
         [Test]
         public async void RootPathReturnsCharacterList()
         {
-            using (var server = GetServer())
-            {
-                var response = await server.HttpClient.GetAsync("/");
-                var title = await Utils.GetTitle(response);
-                StringAssert.Contains("Character List", title);
-            }
+            await ResourceAtPath("/").HasTitle("evefifo - Character List");
         }
 
         [Test]
         public async void CharacterPathReturnsCharacterDetails()
         {
-            using (var server = GetServer())
-            {
-                var response = await server.HttpClient.GetAsync("/characters/1234");
-                var title = await Utils.GetTitle(response);
-                StringAssert.Contains("Bob", title);
-            }
+            await ResourceAtPath("/characters/1234").HasTitle("evefifo - Bob");
         }
 
         [Test]
         public async void NonExistentCharacterPathReturns404()
         {
-            using (var server = GetServer())
-            {
-                var response = await server.HttpClient.GetAsync("/characters/9999");
-                Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
-            }
+            await ResourceAtPath("/characters/9999").HasStatusCode(HttpStatusCode.NotFound);
         }
 
         [Test]
         public async void UnknownPathReturns404()
         {
-            using (var server = TestServer.Create<Startup>())
-            {
-                var response = await server.HttpClient.GetAsync("/asldkjfhalskdjfhlasdjfhas");
-                Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
-            }
+            await ResourceAtPath("/asldkjfhalskdjfhlasdjfhas").HasStatusCode(HttpStatusCode.NotFound);
         }
 
         [Test]
         public async void ApiKeysPathReturnsApiKeys()
         {
-            using (var server = TestServer.Create<Startup>())
-            {
-                var response = await server.HttpClient.GetAsync("/apikeys");
-                Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-            }
+            await ResourceAtPath("/apikeys").HasStatusCode(HttpStatusCode.OK);
         }
     }
 }
