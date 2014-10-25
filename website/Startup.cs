@@ -36,10 +36,12 @@ namespace evefifo.website
                 })));
 
                 var characterController = new CharacterController();
+                var apiKeyController = new ApiKeyController();
                 app.UseStaticFiles();
                 app.UseRoutes(
                     new Route("/", characterController.List),
-                    new Route("/character/{id}", characterController.Show)
+                    new Route("/character/{id}", characterController.Show),
+                    new Route("/apikey", apiKeyController.List)
                 );
             };
         }

@@ -74,6 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="controllers\ApiKeyController.cs" />
     <Compile Include="controllers\CharacterController.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="models\CharacterListModel.cs" />

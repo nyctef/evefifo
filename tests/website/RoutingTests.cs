@@ -70,5 +70,15 @@ namespace evefifo.tests.website
                 Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
             }
         }
+
+        [Test]
+        public async void ApiKeysPathReturnsApiKeys()
+        {
+            using (var server = TestServer.Create<Startup>())
+            {
+                var response = await server.HttpClient.GetAsync("/apikey");
+                Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            }
+        }
     }
 }
