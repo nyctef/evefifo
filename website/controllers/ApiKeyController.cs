@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace evefifo.website.controllers
 {
-    class ApiKeyController
+    class ApiKeyController : ControllerBase
     {
         public async Task List(IDictionary<string, object> environment)
         {

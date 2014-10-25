@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="controllers\ApiKeyController.cs" />
     <Compile Include="controllers\CharacterController.cs" />
+    <Compile Include="controllers\ControllerBase.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="models\CharacterListModel.cs" />
     <Compile Include="models\CharacterModel.cs" />
