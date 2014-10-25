@@ -4,3 +4,8 @@
     var keys = @Model.ApiKeys;
 }
 
+<ul>
+    @foreach (var k in keys) {
+    <li>@k.Id (@k.Secret)</li>
+    }
+</ul>

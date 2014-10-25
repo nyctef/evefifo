@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using HtmlAgilityPack;
 using NUnit.Framework;
 using System.Net;
+using Moq.Language.Flow;
 
 namespace evefifo.tests
 {
@@ -59,6 +60,11 @@ namespace evefifo.tests
         {
             Assert.AreEqual(title, await GetTitle(await response));
             return await response;
+        }
+
+        internal static void ReturnsAsync<TMock, TResult>(this ISetupGetter<TMock, Task<TResult>> mock, TResult result) where TMock:class
+        {
+            mock.Returns(Task.FromResult(result));
         }
     }
 }

@@ -28,6 +28,9 @@ namespace evefifo.tests.website
                 bob
             });
             repo.Setup(x => x.Character(1234)).ReturnsAsync(bob);
+            repo.SetupGet(x => x.ApiKeys).ReturnsAsync(new List<ApiKey> {
+                new ApiKey { Id = 1234, Secret = "api_secret_1" }
+            });
             return TestServer.Create(Startup.Configuration(() => repo.Object));
         }
 

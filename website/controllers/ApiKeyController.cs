@@ -11,7 +11,7 @@ namespace evefifo.website.controllers
         public async Task List(IDictionary<string, object> environment)
         {
             var repo = GetRepository(environment);
-            var model = new { ApiKeys = repo.ApiKeys };
+            var model = new { ApiKeys = await repo.ApiKeys };
             string result = await CompileView("ApiKeyList", model);
 
             await WriteResponse(environment, result);
