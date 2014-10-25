@@ -29,8 +29,7 @@ namespace evefifo.website.controllers
         public async Task Show(IDictionary<string, object> environment)
         {
             var repo = GetRepository(environment);
-            var parameters = (IDictionary<string, string>)environment["evefifo.RequestParameters"];
-            var characterId = Convert.ToInt32(parameters["id"]);
+            var characterId = GetIntParameter(environment, "id");
             var character = await repo.Character(characterId);
             if (character == null)
             {
