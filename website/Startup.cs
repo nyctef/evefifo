@@ -40,8 +40,8 @@ namespace evefifo.website
                 app.UseStaticFiles();
                 app.UseRoutes(
                     new Route("/", characterController.List),
-                    new Route("/character/{id}", characterController.Show),
-                    new Route("/apikey", apiKeyController.List)
+                    new Route("/characters/{id}", characterController.Show),
+                    new Route("/apikeys", apiKeyController.List)
                 );
             };
         }

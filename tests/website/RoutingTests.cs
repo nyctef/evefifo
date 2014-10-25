@@ -55,7 +55,7 @@ namespace evefifo.tests.website
         {
             using (var server = GetServer())
             {
-                var response = await server.HttpClient.GetAsync("/character/1234");
+                var response = await server.HttpClient.GetAsync("/characters/1234");
                 var title = await Utils.GetTitle(response);
                 StringAssert.Contains("Bob", title);
             }
@@ -66,7 +66,7 @@ namespace evefifo.tests.website
         {
             using (var server = GetServer())
             {
-                var response = await server.HttpClient.GetAsync("/character/9999");
+                var response = await server.HttpClient.GetAsync("/characters/9999");
                 Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
             }
         }
@@ -86,7 +86,7 @@ namespace evefifo.tests.website
         {
             using (var server = TestServer.Create<Startup>())
             {
-                var response = await server.HttpClient.GetAsync("/apikey");
+                var response = await server.HttpClient.GetAsync("/apikeys");
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             }
         }
