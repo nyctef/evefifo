@@ -40,9 +40,9 @@ namespace evefifo.tests.website
                     {
                         new SkillQueue.Entry(1, "skill", 2, 3, 4, now, skillEnd)
                     })
-                });
+                }, now);
 
-                Assert.AreEqual("4 minutes, 59 seconds", model.TotalQueueLength);
+                Assert.AreEqual("5 minutes", model.TotalQueueLength);
             }
         }
     }
