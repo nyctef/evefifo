@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
@@ -24,7 +25,9 @@ namespace evefifo.website.routing
         {
             foreach (var route in m_Routes)
             {
-                RouteMatch routeMatch = route.Matches((string)environment["owin.RequestPath"]);
+                var path = (string)environment["owin.RequestPath"];
+                var method = GetMethod((string)environment["owin.RequestMethod"]);
+                RouteMatch routeMatch = route.Matches(method, path);
                 if (routeMatch.Success)
                 {
                     environment["evefifo.RequestParameters"] = routeMatch.Parameters;
@@ -34,6 +37,21 @@ namespace evefifo.website.routing
             }
 
             await m_Next(environment);
+        }
+
+        private HttpMethod GetMethod(string methodName)
+        {
+            switch (methodName)
+            {
+                case "GET": return HttpMethod.Get;
+                case "POST": return HttpMethod.Post;
+                case "PUT": return HttpMethod.Put;
+                case "HEAD": return HttpMethod.Head;
+                case "DELETE": return HttpMethod.Delete;
+                case "OPTIONS": return HttpMethod.Options;
+                case "TRACE": return HttpMethod.Trace;
+                default: throw new ArgumentOutOfRangeException("methodName");
+            }
         }
     }
 

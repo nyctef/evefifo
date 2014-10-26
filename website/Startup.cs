@@ -5,6 +5,7 @@ using Microsoft.Owin;
 using Owin;
 using System;
 using System.Net;
+using System.Net.Http;
 using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
 
 
@@ -53,7 +54,8 @@ namespace evefifo.website
                 app.UseRoutes(
                     new Route("/", characterController.List),
                     new Route("/characters/{id}", characterController.Show),
-                    new Route("/apikeys", apiKeyController.List)
+                    new Route("/apikeys", apiKeyController.List),
+                    new Route("/apikeys", apiKeyController.Add, HttpMethod.Post)
                 );
             };
         }

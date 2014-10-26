@@ -50,10 +50,15 @@ namespace evefifo.website.controllers
             return result;
         }
 
+        protected IDictionary<string, string[]> GetHeaders(IDictionary<string, object> environment)
+        {
+            return (IDictionary<string, string[]>)environment["owin.ResponseHeaders"];
+        }
+
         protected async Task WriteResponse(IDictionary<string, object> environment, string result)
         {
             environment["owin.ResponseStatusCode"] = HttpStatusCode.OK;
-            var headers = (IDictionary<string, string[]>)environment["owin.ResponseHeaders"];
+            var headers = GetHeaders(environment);
             headers["Content-Type"] = new[] { "text/html" };
             var stream = (Stream)environment["owin.ResponseBody"];
             using (var writer = new StreamWriter(stream, System.Text.Encoding.UTF8, 1024, true))
@@ -65,6 +70,13 @@ namespace evefifo.website.controllers
         protected async Task Write404(IDictionary<string, object> environment)
         {
             environment["owin.ResponseStatusCode"] = HttpStatusCode.NotFound;
+        }
+
+        protected async Task Write303(IDictionary<string, object> environment, string redirectPath)
+        {
+            environment["owin.ResponseStatusCode"] = HttpStatusCode.SeeOther;
+            var headers = GetHeaders(environment);
+            headers["Location"] = new[] { redirectPath };
         }
 
         protected async Task<string> GetTemplateFile(string viewName)

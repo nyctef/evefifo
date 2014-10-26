@@ -21,5 +21,13 @@ namespace evefifo.website.controllers
         {
             
         }
+
+        public async Task Add(IDictionary<string, object> environment)
+        {
+            var path = (string)environment["owin.RequestPath"];
+            var repo = GetRepository(environment);
+
+            await Write303(environment, path);
+        }
     }
 }

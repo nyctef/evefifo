@@ -62,6 +62,12 @@ namespace evefifo.tests
             return await response;
         }
 
+        internal static void HasHeader(this HttpResponseMessage response, string headerName, string headerValue)
+        {
+            var header = response.Headers.GetValues(headerName).Single();
+            Assert.AreEqual(headerValue, header);
+        }
+
         internal static void ReturnsAsync<TMock, TResult>(this ISetupGetter<TMock, Task<TResult>> mock, TResult result) where TMock:class
         {
             mock.Returns(Task.FromResult(result));

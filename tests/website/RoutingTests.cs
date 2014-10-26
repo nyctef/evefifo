@@ -42,6 +42,14 @@ namespace evefifo.tests.website
             }
         }
 
+        private static async Task<HttpResponseMessage> PostToPath(string path, HttpContent content)
+        {
+            using (var server = GetServer())
+            {
+                return await server.HttpClient.PostAsync(path, content);
+            }
+        }
+
         [Test]
         public async void RootPathReturns200()
         {
@@ -78,6 +86,14 @@ namespace evefifo.tests.website
             var response = await ResourceAtPath("/apikeys");
             response.HasStatusCode(HttpStatusCode.OK);
             response.HasTitle("evefifo - Api keys");
+        }
+
+        [Test]
+        public async void ApiKeysPOSTReturnsApiKeys()
+        {
+            var response = await PostToPath("/apikeys", new StringContent("hello"));
+            response.HasStatusCode(HttpStatusCode.SeeOther);
+            response.HasHeader("Location", "/apikeys");
         }
     }
 }

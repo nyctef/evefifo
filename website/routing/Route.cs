@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace evefifo.website.routing
 {
@@ -11,17 +12,20 @@ namespace evefifo.website.routing
     {
         private readonly Regex m_Regex;
         private readonly Func<IDictionary<string, object>, Task> m_Action;
+        private readonly HttpMethod m_Method;
 
-        public Route(string match, Func<IDictionary<string, object>, Task> action)
+        public Route(string match, Func<IDictionary<string, object>, Task> action, HttpMethod method = null)
         {
             m_Regex = new Regex(CreateRegex(match), RegexOptions.Compiled | RegexOptions.ExplicitCapture, TimeSpan.FromSeconds(1));
             m_Action = action;
+            m_Method = method ?? HttpMethod.Get;
         }
 
         public Func<IDictionary<string, object>, Task> Action { get { return m_Action; } }
 
-        public RouteMatch Matches(string requestPath)
+        public RouteMatch Matches(HttpMethod method, string requestPath)
         {
+            if (method != m_Method) return new RouteMatch(false, null);
             var match = m_Regex.Match(requestPath);
             return new RouteMatch(match.Success, ParameterNames().Select(x => new KeyValuePair<string, string>(x, match.Groups[x].Value)).ToDictionary());
         }
