@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace evefifo.website.controllers
 {
-    abstract class ControllerBase
+    public abstract class ControllerBase
     {
         public ControllerBase()
         {

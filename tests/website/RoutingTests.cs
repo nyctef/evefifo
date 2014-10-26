@@ -91,7 +91,7 @@ namespace evefifo.tests.website
         [Test]
         public async void ApiKeysPOSTReturnsApiKeys()
         {
-            var response = await PostToPath("/apikeys", new StringContent("hello"));
+            var response = await PostToPath("/apikeys", new StringContent("{id:1,secret:\"a\"}"));
             response.HasStatusCode(HttpStatusCode.SeeOther);
             response.HasHeader("Location", "/apikeys");
         }
