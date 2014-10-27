@@ -46,12 +46,10 @@ namespace evefifo.tests.website
         public async Task ApiKeyListAddsKeysToRepo()
         {
             var controller = new ApiKeyController();
-            var environment = new Dictionary<string, object>();
             var repo = CreateRepo();
             var postData = @"{ id: 1001, secret: ""a secret"" }";
             var postDataStream = new MemoryStream(Encoding.UTF8.GetBytes(postData));
-            environment["owin.ResponseHeaders"] = new Dictionary<string, string[]>();
-            await controller.Add(new Request(environment, HttpMethod.Post, "/apikeys", new Dictionary<string, string>(), repo.Object, postDataStream));
+            await controller.Add(new Request(HttpMethod.Post, "/apikeys", new Dictionary<string, string>(), repo.Object, postDataStream));
             repo.Verify(x => x.AddApiKey(It.Is<ApiKey>(k => k.Id == 1001 && k.Secret == "a secret")));
         }
     }
