@@ -1,5 +1,6 @@
 ﻿using evefifo.model;
 using evefifo.website.models;
+using evefifo.website.routing;
 using RazorEngine;
 using RazorEngine.Configuration;
 using RazorEngine.Templating;
@@ -16,30 +17,30 @@ namespace evefifo.website.controllers
 {
     class CharacterController : ControllerBase
     {
-        public async Task List(IDictionary<string, object> environment)
+        public async Task List(Request request)
         {
-            var repo = GetRepository(environment);
+            var repo = request.Repository;
             var characterEntries = (await repo.Characters).Select(x => new CharacterListModel.CharacterEntry { Character = x, NumNotifications = x.Notifications.Count });
             var model = new CharacterListModel(characterEntries.ToList());
             string result = await CompileView("CharacterList", model);
 
-            await WriteResponse(environment, result);
+            await WriteResponse(request.Environment, result);
         }
 
-        public async Task Show(IDictionary<string, object> environment)
+        public async Task Show(Request request)
         {
-            var repo = GetRepository(environment);
-            var characterId = GetIntParameter(environment, "id");
+            var repo = request.Repository;
+            var characterId = Convert.ToInt32(request.Parameters["id"]);
             var character = await repo.Character(characterId);
             if (character == null)
             {
-                await Write404(environment);
+                await Write404(request.Environment);
                 return;
             }
             var model = new CharacterModel(character);
             string result = await CompileView("Character", model);
 
-            await WriteResponse(environment, result);
+            await WriteResponse(request.Environment, result);
         }
     }
 }

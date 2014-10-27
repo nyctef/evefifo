@@ -1,6 +1,8 @@
-﻿using Owin;
+﻿using evefifo.model;
+using Owin;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -31,7 +33,10 @@ namespace evefifo.website.routing
                 if (routeMatch.Success)
                 {
                     environment["evefifo.RequestParameters"] = routeMatch.Parameters;
-                    await route.Action(environment);
+                    var repo = (IRepository)environment["evefifo.Repository"];
+                    var body = (Stream)environment["owin.RequestBody"];
+                    var request = new Request(environment, method, path, routeMatch.Parameters, repo, body);
+                    await route.Action(request);
                     return;
                 }
             }
@@ -39,7 +44,7 @@ namespace evefifo.website.routing
             await m_Next(environment);
         }
 
-        private HttpMethod GetMethod(string methodName)
+        private static HttpMethod GetMethod(string methodName)
         {
             switch (methodName)
             {

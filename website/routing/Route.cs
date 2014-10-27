@@ -11,17 +11,17 @@ namespace evefifo.website.routing
     public class Route
     {
         private readonly Regex m_Regex;
-        private readonly Func<IDictionary<string, object>, Task> m_Action;
+        private readonly Func<Request, Task> m_Action;
         private readonly HttpMethod m_Method;
 
-        public Route(string match, Func<IDictionary<string, object>, Task> action, HttpMethod method = null)
+        public Route(string match, Func<Request, Task> action, HttpMethod method = null)
         {
             m_Regex = new Regex(CreateRegex(match), RegexOptions.Compiled | RegexOptions.ExplicitCapture, TimeSpan.FromSeconds(1));
             m_Action = action;
             m_Method = method ?? HttpMethod.Get;
         }
 
-        public Func<IDictionary<string, object>, Task> Action { get { return m_Action; } }
+        public Func<Request, Task> Action { get { return m_Action; } }
 
         public RouteMatch Matches(HttpMethod method, string requestPath)
         {

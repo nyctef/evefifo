@@ -1,6 +1,7 @@
 ﻿using evefifo.model;
 using evefifo.website;
 using evefifo.website.controllers;
+using evefifo.website.routing;
 using Microsoft.Owin.Testing;
 using Moq;
 using NUnit.Framework;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -47,11 +49,9 @@ namespace evefifo.tests.website
             var environment = new Dictionary<string, object>();
             var repo = CreateRepo();
             var postData = @"{ id: 1001, secret: ""a secret"" }";
-            environment["owin.RequestBody"] = new MemoryStream(Encoding.UTF8.GetBytes(postData));
-            environment["owin.RequestPath"] = "/apikeys";
+            var postDataStream = new MemoryStream(Encoding.UTF8.GetBytes(postData));
             environment["owin.ResponseHeaders"] = new Dictionary<string, string[]>();
-            environment["evefifo.Repository"] = repo.Object;
-            await controller.Add(environment);
+            await controller.Add(new Request(environment, HttpMethod.Post, "/apikeys", new Dictionary<string, string>(), repo.Object, postDataStream));
             repo.Verify(x => x.AddApiKey(It.Is<ApiKey>(k => k.Id == 1001 && k.Secret == "a secret")));
         }
     }

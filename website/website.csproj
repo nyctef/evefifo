@@ -87,6 +87,7 @@
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="models\CharacterListModel.cs" />
     <Compile Include="models\CharacterModel.cs" />
+    <Compile Include="routing\Request.cs" />
     <Compile Include="routing\Route.cs" />
     <Compile Include="routing\RouteMatch.cs" />
     <Compile Include="routing\Routing.cs" />

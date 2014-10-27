@@ -1,0 +1,31 @@
+﻿using evefifo.model;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace evefifo.website.routing
+{
+    public class Request
+    {
+        public readonly IDictionary<string, object> Environment;
+        public readonly HttpMethod Method;
+        public readonly string Path;
+        public readonly IRepository Repository;
+        public readonly IDictionary<string, string> Parameters;
+        public readonly Stream Body;
+
+        public Request(IDictionary<string, object> environment, HttpMethod method, string path, IDictionary<string, string> parameters, IRepository repository, Stream body)
+        {
+            Environment = environment;
+            Method = method;
+            Path = path;
+            Parameters = parameters;
+            Repository = repository;
+            Body = body;
+        }
+    }
+}

@@ -1,4 +1,5 @@
 ﻿using evefifo.model;
+using evefifo.website.routing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -16,31 +17,31 @@ namespace evefifo.website.controllers
     {
         public ApiKeyController() { }
 
-        public async Task List(IDictionary<string, object> environment)
+        public async Task List(Request request)
         {
-            var repo = GetRepository(environment);
+            var repo = request.Repository;
             var model = new { ApiKeys = await repo.ApiKeys };
             string result = await CompileView("ApiKeyList", model);
 
-            await WriteResponse(environment, result);
+            await WriteResponse(request.Environment, result);
         }
 
-        public async Task Show(IDictionary<string, object> environment)
+        public async Task Show(Request request)
         {
             
         }
 
-        public async Task Add(IDictionary<string, object> environment)
+        public async Task Add(Request request)
         {
-            var path = (string)environment["owin.RequestPath"];
-            var repo = GetRepository(environment);
-            var postData = (Stream)environment["owin.RequestBody"];
+            var path = request.Path;
+            var repo = request.Repository;
+            var postData = request.Body;
             var json = await new StreamReader(postData).ReadToEndAsync();
             dynamic data = JObject.Parse(json);
 
             repo.AddApiKey(new ApiKey { Id = data.id, Secret = data.secret });
 
-            await Write303(environment, path);
+            await Write303(request.Environment, path);
         }
     }
 }
