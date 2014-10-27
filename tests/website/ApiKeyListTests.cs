@@ -2,6 +2,7 @@
 using evefifo.website;
 using evefifo.website.controllers;
 using evefifo.website.routing;
+using evefifo.website.routing.responses;
 using Microsoft.Owin.Testing;
 using Moq;
 using NUnit.Framework;
@@ -49,8 +50,9 @@ namespace evefifo.tests.website
             var repo = CreateRepo();
             var postData = @"{ id: 1001, secret: ""a secret"" }";
             var postDataStream = new MemoryStream(Encoding.UTF8.GetBytes(postData));
-            await controller.Add(new Request(HttpMethod.Post, "/apikeys", new Dictionary<string, string>(), repo.Object, postDataStream));
+            var response = await controller.Add(new Request(HttpMethod.Post, "/apikeys", new Dictionary<string, string>(), repo.Object, postDataStream));
             repo.Verify(x => x.AddApiKey(It.Is<ApiKey>(k => k.Id == 1001 && k.Secret == "a secret")));
+            Assert.AreEqual("/apikeys", ((SeeOtherResponse)response).Location);
         }
     }
 }
