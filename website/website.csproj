@@ -87,10 +87,15 @@
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="models\CharacterListModel.cs" />
     <Compile Include="models\CharacterModel.cs" />
+    <Compile Include="routing\responses\HtmlFoundResponse.cs" />
+    <Compile Include="routing\responses\NotFoundResponse.cs" />
     <Compile Include="routing\Request.cs" />
+    <Compile Include="routing\responses\Response.cs" />
+    <Compile Include="routing\ResponseWriter.cs" />
     <Compile Include="routing\Route.cs" />
     <Compile Include="routing\RouteMatch.cs" />
     <Compile Include="routing\Routing.cs" />
+    <Compile Include="routing\responses\SeeOtherResponse.cs" />
     <Compile Include="routing\StaticFiles.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Program.cs" />

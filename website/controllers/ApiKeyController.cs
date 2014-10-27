@@ -17,21 +17,21 @@ namespace evefifo.website.controllers
     {
         public ApiKeyController() { }
 
-        public async Task List(Request request)
+        public async Task<Response> List(Request request)
         {
             var repo = request.Repository;
             var model = new { ApiKeys = await repo.ApiKeys };
             string result = await CompileView("ApiKeyList", model);
 
-            await WriteResponse(request.Environment, result);
+            return new HtmlFoundResponse(result);
         }
 
-        public async Task Show(Request request)
+        public async Task<Response> Show(Request request)
         {
-            
+            return new NotFoundResponse();
         }
 
-        public async Task Add(Request request)
+        public async Task<Response> Add(Request request)
         {
             var path = request.Path;
             var repo = request.Repository;
@@ -41,7 +41,7 @@ namespace evefifo.website.controllers
 
             repo.AddApiKey(new ApiKey { Id = data.id, Secret = data.secret });
 
-            await Write303(request.Environment, path);
+            return new SeeOtherResponse(request.Path);
         }
     }
 }

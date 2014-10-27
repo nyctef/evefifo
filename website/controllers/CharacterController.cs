@@ -17,30 +17,29 @@ namespace evefifo.website.controllers
 {
     class CharacterController : ControllerBase
     {
-        public async Task List(Request request)
+        public async Task<Response> List(Request request)
         {
             var repo = request.Repository;
             var characterEntries = (await repo.Characters).Select(x => new CharacterListModel.CharacterEntry { Character = x, NumNotifications = x.Notifications.Count });
             var model = new CharacterListModel(characterEntries.ToList());
             string result = await CompileView("CharacterList", model);
 
-            await WriteResponse(request.Environment, result);
+            return new HtmlFoundResponse(result);
         }
 
-        public async Task Show(Request request)
+        public async Task<Response> Show(Request request)
         {
             var repo = request.Repository;
             var characterId = Convert.ToInt32(request.Parameters["id"]);
             var character = await repo.Character(characterId);
             if (character == null)
             {
-                await Write404(request.Environment);
-                return;
+                return new NotFoundResponse();
             }
             var model = new CharacterModel(character);
             string result = await CompileView("Character", model);
 
-            await WriteResponse(request.Environment, result);
+            return new HtmlFoundResponse(result);
         }
     }
 }
