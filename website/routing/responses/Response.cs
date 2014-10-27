@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace evefifo.website.routing
+namespace evefifo.website.routing.responses
 {
     public abstract class Response
     {

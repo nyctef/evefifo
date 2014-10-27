@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace evefifo.website.routing
+namespace evefifo.website.routing.responses
 {
     public class HtmlFoundResponse : Response
     {
@@ -19,7 +19,7 @@ namespace evefifo.website.routing
 
         public override async Task WriteTo(ResponseWriter writer) 
         {
-            writer.Write(this);
+            await writer.Write(this);
         }
     }
 }

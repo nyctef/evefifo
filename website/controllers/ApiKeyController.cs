@@ -1,5 +1,6 @@
 ﻿using evefifo.model;
 using evefifo.website.routing;
+using evefifo.website.routing.responses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -21,9 +22,7 @@ namespace evefifo.website.controllers
         {
             var repo = request.Repository;
             var model = new { ApiKeys = await repo.ApiKeys };
-            string result = await CompileView("ApiKeyList", model);
-
-            return new HtmlFoundResponse(result);
+            return new ViewResponse("ApiKeyList", model);
         }
 
         public async Task<Response> Show(Request request)

@@ -7,9 +7,16 @@ using System.Threading.Tasks;
 
 namespace evefifo.website.routing.responses
 {
-    public class NotFoundResponse : Response
+    class ViewResponse : Response
     {
-        public NotFoundResponse() : base(HttpStatusCode.NotFound) { }
+        public readonly string ViewName;
+        public readonly object Model;
+
+        public ViewResponse(string viewName, object model, HttpStatusCode statusCode = HttpStatusCode.OK) : base(statusCode)
+        {
+            ViewName = viewName;
+            Model = model;
+        }
 
         public override async Task WriteTo(ResponseWriter writer)
         {

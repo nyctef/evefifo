@@ -1,6 +1,7 @@
 ﻿using evefifo.model;
 using evefifo.website.models;
 using evefifo.website.routing;
+using evefifo.website.routing.responses;
 using RazorEngine;
 using RazorEngine.Configuration;
 using RazorEngine.Templating;
@@ -22,9 +23,7 @@ namespace evefifo.website.controllers
             var repo = request.Repository;
             var characterEntries = (await repo.Characters).Select(x => new CharacterListModel.CharacterEntry { Character = x, NumNotifications = x.Notifications.Count });
             var model = new CharacterListModel(characterEntries.ToList());
-            string result = await CompileView("CharacterList", model);
-
-            return new HtmlFoundResponse(result);
+            return new ViewResponse("CharacterList", model);
         }
 
         public async Task<Response> Show(Request request)
@@ -37,9 +36,7 @@ namespace evefifo.website.controllers
                 return new NotFoundResponse();
             }
             var model = new CharacterModel(character);
-            string result = await CompileView("Character", model);
-
-            return new HtmlFoundResponse(result);
+            return new ViewResponse("Character", model);
         }
     }
 }

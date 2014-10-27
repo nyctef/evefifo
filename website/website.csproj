@@ -91,6 +91,7 @@
     <Compile Include="routing\responses\NotFoundResponse.cs" />
     <Compile Include="routing\Request.cs" />
     <Compile Include="routing\responses\Response.cs" />
+    <Compile Include="routing\responses\ViewResponse.cs" />
     <Compile Include="routing\ResponseWriter.cs" />
     <Compile Include="routing\Route.cs" />
     <Compile Include="routing\RouteMatch.cs" />

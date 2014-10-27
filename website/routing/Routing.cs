@@ -37,7 +37,7 @@ namespace evefifo.website.routing
                     var body = (Stream)environment["owin.RequestBody"];
                     var request = new Request(environment, method, path, routeMatch.Parameters, repo, body);
                     var response = await route.Action(request);
-                    response.WriteTo(new ResponseWriter(environment));
+                    await response.WriteTo(new ResponseWriter(environment));
                     return;
                 }
             }
