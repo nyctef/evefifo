@@ -35,12 +35,11 @@ namespace evefifo.tests.website
         [Test]
         public async Task ApiKeyListContainsKeysInRepo()
         {
-            using (var server = GetServer(CreateRepo().Object))
-            {
-                var body = await Utils.GetBody(await server.HttpClient.GetAsync("/apikeys"));
-                StringAssert.Contains("1234", body.InnerText);
-                StringAssert.Contains("api_secret_1", body.InnerText);
-            }
+            var controller = new ApiKeyController();
+            var response = await controller.List(new Request(HttpMethod.Get, "/apikeys", new Dictionary<string, string>(), CreateRepo().Object, null));
+            var viewResponse = (ViewResponse)response;
+            Assert.AreEqual("ApiKeyList", viewResponse.ViewName);
+            Assert.AreEqual("api_secret_1", viewResponse.Model.ApiKeys[0].Secret);
         }
 
         [Test]

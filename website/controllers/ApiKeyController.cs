@@ -21,8 +21,7 @@ namespace evefifo.website.controllers
         public async Task<Response> List(Request request)
         {
             var repo = request.Repository;
-            var model = new { ApiKeys = await repo.ApiKeys };
-            return new ViewResponse("ApiKeyList", model);
+            return new ViewResponse("ApiKeyList", new { ApiKeys = await repo.ApiKeys });
         }
 
         public async Task<Response> Show(Request request)

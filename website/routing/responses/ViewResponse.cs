@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace evefifo.website.routing.responses
 {
-    class ViewResponse : Response
+    public class ViewResponse : Response
     {
         public readonly string ViewName;
-        public readonly object Model;
+        public readonly dynamic Model;
 
-        public ViewResponse(string viewName, object model, HttpStatusCode statusCode = HttpStatusCode.OK) : base(statusCode)
+        public ViewResponse(string viewName, dynamic model, HttpStatusCode statusCode = HttpStatusCode.OK)
+            : base(statusCode)
         {
             ViewName = viewName;
             Model = model;
